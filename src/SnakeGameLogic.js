@@ -41,3 +41,10 @@ SnakeGameLogic.prototype.nextState = function() {
 }
 
 export default SnakeGameLogic;
+
+
+// 상자는 랜덤
+//next state계속실행
+// 다음번 모양 그려주기
+//뱀이동
+// 뱀 바라보는방향에 따라 
