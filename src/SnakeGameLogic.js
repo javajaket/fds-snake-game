@@ -1,11 +1,15 @@
 import {ROWS, COLS} from './config';
 
 function SnakeGameLogic() {
-  // 각 마디의 좌표를 저장하는 배열. fruit[0]와 joints[0]이 같을 때 아이템 하나씩 추가
+  // 각 마디의 좌표를 저장하는 배열
+  // 꼬리를 떼서 머리에 붙여준다
+  // fruit[마지막인덱스]와 joints[0]이 같을 때 아이템 하나씩 추가
   this.joints = [
-    {x: 2, y: 0},
-    {x: 1, y: 0},
-    {x: 0, y: 0},
+    {x: 2, y: 5},
+    {x: 2, y: 4},
+    {x: 2, y: 3},
+    {x: 2, y: 2},
+    {x: 2, y: 1},
   ];
 
   // 먹이의 좌표. joints[0]과 같아 지면 랜덤 위치
