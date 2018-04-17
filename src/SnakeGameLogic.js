@@ -37,7 +37,7 @@ SnakeGameLogic.prototype.nextState = function() {
   // 게임이 아직 끝나지 않았으면 `true`를 반환
   // 게임이 끝났으면 `false`를 반환
   console.log(`nextState`);
-  return true;
+  return true; // nextState에서 false면 게임 오버임
 }
 
 export default SnakeGameLogic;
