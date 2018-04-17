@@ -1,6 +1,7 @@
 import {ROWS, COLS} from './config';
 
 // SnakeGameLogic 생성자 
+//객체 안에 joint와 fruit가 생긴다.
 function SnakeGameLogic() {
   // 각 마디의 좌표를 저장하는 배열
   
@@ -10,9 +11,9 @@ function SnakeGameLogic() {
   // x와 y로 된 객체 한 쌍이 칸 한개를 나타낸다.
   // 객체의 갯수가 게임 하단 현재 길이에 출력된다.
   this.joints = [
-    {x: 0, y: 0},
-    {x: 1, y: 0},
     {x: 2, y: 0},
+    {x: 1, y: 0},
+    {x: 0, y: 0},
   ];
   
 
@@ -38,6 +39,24 @@ SnakeGameLogic.prototype.left = function() {
 SnakeGameLogic.prototype.right = function() {
   // 오른쪽 화살표 키를 누르면 실행되는 함수
   console.log('right');
+  // 시작점의 객체가 뒤집어진 경우의 풀이
+  // this.joints.shift();
+  // let snakeLength = this.joints.length;
+  // const firstPiece = {};
+  // firstPiece.x = this.joints[snakeLength - 1].x + 1;
+  // firstPiece.y = this.joints[snakeLength - 1].y;
+  // this.joints.push(firstPiece);  
+ 
+
+  //꼬리를 뗀다.
+  this.joints.pop();
+  //배열앞의 요소를 추가한다.
+  const newHead = {
+   x: this.joints[0].x + 1,
+   y: this.joints[0].y
+  };
+  this.joints.unshift(newHead);
+
 }
 
 SnakeGameLogic.prototype.nextState = function() {

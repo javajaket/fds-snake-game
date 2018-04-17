@@ -58,7 +58,7 @@ export default class SnakeGame {
   init() {
     this.delay = INITIAL_DELAY;
     this.table = new Array(ROWS).fill(null).map(() => new Array(COLS).fill(null));
-    this.logic = new SnakeGameLogic();
+    this.logic = new SnakeGameLogic(); //객체를 생성해준다.
     this.updateTable();
     this.draw();
   }
