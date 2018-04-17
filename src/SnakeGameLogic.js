@@ -69,8 +69,15 @@ SnakeGameLogic.prototype.nextState = function() {
   } else if ((newJoint['x'] === this.fruit['x'] && newJoint['y'] === this.fruit['y'])) {
     // 뱀이 사과를 먹을때
     this.joints.unshift(newJoint);
-    this.fruit['x'] = Math.floor(Math.random() * COLS);
-    this.fruit['y'] = Math.floor(Math.random() * ROWS);
+    // ※ 뱀이 너무 길어져서 사과가 뱀 몸통에 생성되지 않게 하기
+    let fruitJointX = [this.fruit['x']];
+    let fruitJointY = [this.fruit['y']];
+    do {
+      fruitJointX = Math.floor(Math.random() * COLS);
+      fruitJointY = Math.floor(Math.random() * ROWS);
+    }
+    while(this.joints.some(item => item['x'] === fruitJointX && item['y'] === fruitJointY))
+    this.fruit = {x: fruitJointX, y: fruitJointY}
     // this.joints.pop();
   }
   else {
