@@ -15,47 +15,29 @@ function SnakeGameLogic() {
 
 SnakeGameLogic.prototype.up = function() {
   // 위쪽 화살표 키를 누르면 실행되는 함수
-  // joint의 y축을 -1 시킴
-  this.joints[this.joints.length-1].x = this.joints[0].x;
-
-  this.joints[this.joints.length-1].y = this.joints[0].y-1;
-
-  for(let i = 0 ; i<this.joints.length;i++){
-    this.joints[i].y -= 1;
-  }
-
+  this.joints.pop();
+  this.joints.unshift({x: this.joints[0].x , y: this.joints[0].y -1})
   console.log('up');
 }
 
 SnakeGameLogic.prototype.down = function() {
   // 아래쪽 화살표 키를 누르면 실행되는 함수
-  // joint y축을 +1 시킴
-
-  for(let i = 0 ; i<this.joints.length;i++){
-    this.joints[i].y += 1;
-  }
+  this.joints.pop();
+  this.joints.unshift({x: this.joints[0].x , y: this.joints[0].y +1 })
   console.log('down');
 }
 
 SnakeGameLogic.prototype.left = function() {
   // 왼쪽 화살표 키를 누르면 실행되는 함수
-  // joint의 x축을 -1시킴
-
-  for(let i = 0 ; i<this.joints.length;i++){
-    this.joints[i].x -= 1;
-  }
+  this.joints.pop();
+  this.joints.unshift({x: this.joints[0].x -1, y: this.joints[0].y })
   console.log('left');
 }
 
 SnakeGameLogic.prototype.right = function() {
   // 오른쪽 화살표 키를 누르면 실행되는 함수
-  //joint의 x축을 +1시킴
-  
-
-  for(let i = 0 ; i<this.joints.length;i++){
-    this.joints[i].x += 1;
-  }
-
+  this.joints.pop();
+  this.joints.unshift({x : this.joints[0].x+1, y : this.joints[0].y});
   console.log('right');
 }
 
