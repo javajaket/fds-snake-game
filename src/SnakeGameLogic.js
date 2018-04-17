@@ -45,6 +45,8 @@ SnakeGameLogic.prototype.nextState = function() {
   // 임시루 작성~
   // 뱀 머리 좌표~
   let newJoint = {x: this.joints[0]['x'], y: this.joints[0]['y']}
+
+  // 뱀 머리 방향에 따른 좌표 계산
   switch(this.direction) {
     case 'up' :
       newJoint['y']--;
@@ -60,11 +62,12 @@ SnakeGameLogic.prototype.nextState = function() {
     default: 
       newJoint['x']++;
   }
+  
   if (this.joints.some(item => item['x'] === newJoint['x'] && item['y'] === newJoint['y'])) {
     // 뱀이 자기 몸통에 부딪치면
     return false;
   } else if ((newJoint['x'] < 0 || newJoint['x'] > COLS - 1) || (newJoint['y'] < 0 || newJoint['y'] > ROWS - 1)) {
-    // 뱀이 영역 벗어나면
+    // 뱀이 게임영역 벗어나면(벽에 부딪치면)
     return false;
   } else if ((newJoint['x'] === this.fruit['x'] && newJoint['y'] === this.fruit['y'])) {
     // 뱀이 사과를 먹을때
@@ -77,7 +80,7 @@ SnakeGameLogic.prototype.nextState = function() {
       fruitJointY = Math.floor(Math.random() * ROWS);
     }
     while(this.joints.some(item => item['x'] === fruitJointX && item['y'] === fruitJointY))
-    this.fruit = {x: fruitJointX, y: fruitJointY}
+    this.fruit = {x: fruitJointX, y: fruitJointY};
     // this.joints.pop();
   }
   else {
