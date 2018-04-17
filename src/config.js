@@ -5,7 +5,7 @@ export const GAME_ROOT = '#game-root';
 export const AUTO_START = true;
 
 // 게임판의 행 개수
-export const ROWS = 20;
+export const ROWS = 30;
 
 // 게임판의 열 개수
 export const COLS = 30;
