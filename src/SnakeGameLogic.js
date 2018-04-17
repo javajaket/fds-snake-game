@@ -17,7 +17,7 @@ function SnakeGameLogic() {
   
 
   // 먹이의 좌표
-  this.fruit = {x: 3, y: 3};
+  this.fruit = {x: 3, y: 5};
 }
 
 SnakeGameLogic.prototype.up = function() {
