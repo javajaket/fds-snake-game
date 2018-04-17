@@ -3,7 +3,6 @@ import {ROWS, COLS} from './config';
 function SnakeGameLogic() {
   // 각 마디의 좌표를 저장하는 배열
   this.joints = [
-    {x: 3, y: 0},
     {x: 2, y: 0},
     {x: 1, y: 0},
     {x: 0, y: 0},
@@ -31,6 +30,12 @@ SnakeGameLogic.prototype.left = function() {
 SnakeGameLogic.prototype.right = function() {
   // 오른쪽 화살표 키를 누르면 실행되는 함수
   console.log('right');
+  this.joints.pop();
+  const newHead = {
+    x: this.joints[0].x + 1,
+    y: 0
+  };
+  this.joints.unshift(newHead);
 }
 
 SnakeGameLogic.prototype.nextState = function() {
