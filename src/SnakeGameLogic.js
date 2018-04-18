@@ -10,7 +10,8 @@ function SnakeGameLogic() {
   // 먹이의 좌표
   this.fruit = {x: 3, y: 5};
   this.direction = "right";
-  
+  // this.newHead = this.joints[1..joints.length];
+  // this.trunk = this.joints.shift();
   }
 
 SnakeGameLogic.prototype.up = function() {
@@ -66,11 +67,19 @@ SnakeGameLogic.prototype.nextState = function() {
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
     this.fruit.x = Math.floor(Math.random() * COLS);
     this.fruit.y = Math.floor(Math.random() * ROWS);
-  }  else { this.joints.pop();}
-
-    if (this.joints[0].x == -1 || this.joints[0].x == COLS || this.joints[0].y == -1 || this.joints[0].y == ROWS) {
-    return false;   
+  } else {
+    this.joints.pop();
   }
+
+  for (let i = 1; i < this.joints.length; i++) {
+    if (this.joints[0].x === this.joints[i].x && this.joints[0].y === this.joints[i].y) {
+      return false;
+    }
+  }
+
+  if (this.joints[0].x == -1 || this.joints[0].x == COLS || this.joints[0].y == -1 || this.joints[0].y == ROWS) {
+    return false;   
+  }  
   else {return true;
           console.log(`nextState`);
         }
@@ -78,8 +87,6 @@ SnakeGameLogic.prototype.nextState = function() {
 export default SnakeGameLogic;
 
 
-// 뱀 바라보는방향에 따라 
-// next state 가 동시에 수행
 //some method를 써라
 
 // 해야될 과제  자기몸에 박았을때, 뒤로갔을때.
