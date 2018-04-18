@@ -101,7 +101,6 @@ export default class SnakeGame {
         this.table[j.y][j.x] = 'joint';
       }
     }
-
     return this.table;
   }
 
