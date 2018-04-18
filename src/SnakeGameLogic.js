@@ -67,6 +67,8 @@ SnakeGameLogic.prototype.nextState = function() {
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
     this.fruit.x = Math.floor(Math.random() * COLS);
     this.fruit.y = Math.floor(Math.random() * ROWS);
+     this.fruit.x != this.joints.x;
+     this.fruit.y != this.joints.y;
   } else {
     this.joints.pop();
   }
