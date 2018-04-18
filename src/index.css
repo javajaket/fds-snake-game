@@ -7,28 +7,32 @@ body {
   width: 50vw;
   margin: 0 auto;
   padding: 2em;
-  border: 5px solid rgb(0,0,0);
+  background: #000;
+  border-width: 10px;
+  border-style: solid;
+  border-image: linear-gradient(90deg, white 10px, white 20px);
 }
 .title {
   text-align: center;
   font-size: 2em;
+  color: #fff;
+  text-shadow: 1px -3px 0 red, 2px -6px 0 blue;
 }
+
 .table__row {
   display: flex;
 }
-
-.table {
-  border: 5px solid rgb(0,0,0)
-}
-
 .table__cell {
   flex-grow: 1;
   box-sizing: border-box;
   margin: 1px;
   background-color: #f5f5f5;
-  box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.38);
+  /* box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.38); */;
+  background-image: 
+  radial-gradient(circle at 20%, black, black 1px, transparent 1px),
+  radial-gradient(circle at 60% 70%, black, black 1px, transparent 1px),
+  radial-gradient(circle at 50% 10%, black, black 1px, transparent 1px)
 }
-
 .table__cell::after {
   display: block;
   content: '';
@@ -107,13 +111,22 @@ body {
 }
 
 .fruit {
+  background: 
+    radial-gradient(circle at 50% 20%, #428d4b, #428d4b 10%, transparent 10%),
+    radial-gradient(circle at 50% 20%, black, black 13%, transparent 13%),
+    radial-gradient(circle at 35% 40%, white, white 5%, transparent 5%),
+    radial-gradient(circle at 20% 45%, white, white 2.5%, transparent 2.5%),
+    radial-gradient(circle at 35% 50%, red, red 30%, transparent 30%),
+    radial-gradient(circle at 66% 50%, red, red 30%, transparent 30%),
+    radial-gradient(circle at 45% 60%, red, red 30%, transparent 30%),
+    radial-gradient(circle at 55% 60%, red, red 30%, transparent 30%),
+    radial-gradient(circle at 35% 50%, black, black 35%, transparent 35%),
+    radial-gradient(circle at 65% 50%, black, black 35%, transparent 35%),
+    radial-gradient(circle at 45% 60%, black, black 35%, transparent 35%),
+    radial-gradient(circle at 55% 60%, black, black 35%, transparent 35%),
+    linear-gradient(0deg, #f5f5f5,#f5f5f5);
   background-color: red;
-  background-image: radial-gradient(circle at 50%, red, red 60%, #f5f5f5 60%);
 }
-/* .fruit::after {
-  position: absolute;
-  content: '\01F34E';
-} */
 
 .description {
   margin-top: 1em;
@@ -125,9 +138,10 @@ body {
 }
 .description span {
   display: inline-block;
-  border: 2px solid rgb(0,0,0);
+  border: 2px solid #fff;
   padding: 1em 2em;
   margin: 5px 0;
+  color: #fff;
 }
 
 .description .button {
@@ -137,10 +151,12 @@ body {
   font-family: 'Press Start 2P', cursive;
   font-size: 1em;
   padding: 1em 1.2em;
-  border-top: 5px solid rgb(255, 187, 187);
-  border-left: 5px solid rgb(221, 134, 134);
-  border-right: 10px solid rgb(235, 68, 68);
-  border-bottom: 10px solid rgb(194, 70, 70) ;
+  border-width: 5px;
+  border-style: solid;
+  border-top-color: rgb(255, 187, 187);
+  border-left-color: rgb(221, 134, 134);
+  border-right-color: rgb(235, 68, 68);
+  border-bottom-color: rgb(194, 70, 70) ;
   background-color: red;
   transform: translateY(0);
   transition: transform 0.3s;
