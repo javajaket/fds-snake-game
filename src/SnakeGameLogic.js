@@ -11,7 +11,8 @@ pop으로 삭제와 unshift로 추가해주면 되고
 
 /*----------TODO List------------- 
 1. 상하좌우 동작 모듈화 -> clear
-2. 시작하자마자 자동 이동
+2. 시작하자마자 자동 이동 -> clear
+   keyboardEvent에 상태를 지정해주고 nextState에 상태를 넘겨줘서 방향에 따른 동작이 실행되게 했다.
 3. 왼쪽 <-> 오른쪽 or 위쪽 <-> 아래쪽 KeyPress 방지
 4. 최대 ROW / COLS에 도착하면 정지
 5. 먹이 좌표에 도착하면 배열길이 증가
@@ -28,9 +29,16 @@ function SnakeGameLogic() {
 
     // 먹이의 좌표
     this.fruit = { x: 3, y: 5 };
+    this.pos = {
+            xpos: 1,
+            ypos: 1
+        }
+        // 방향을 정해주는 변수
+    this.state = ''
 }
+// 상하좌우 이동 함수
+function posMove(arr, xValue, yValue) {
 
-function move(arr, xValue, yValue) {
     let len = arr.length;
     arr.pop();
 
@@ -44,28 +52,28 @@ function move(arr, xValue, yValue) {
 SnakeGameLogic.prototype.up = function() {
     // 위쪽 화살표 키를 누르면 실행되는 함수
     console.log('up');
-    move(this.joints, this.joints[0].x, this.joints[0].y - 1);
+    this.state = 'up';
     console.log(this.joints);
 }
 
 SnakeGameLogic.prototype.down = function() {
     // 아래쪽 화살표 키를 누르면 실행되는 함수
     console.log('down');
-    move(this.joints, this.joints[0].x, this.joints[0].y + 1);
+    this.state = 'down';
     console.log(this.joints);
 }
 
 SnakeGameLogic.prototype.left = function() {
     // 왼쪽 화살표 키를 누르면 실행되는 함수
     console.log("left");
-    move(this.joints, this.joints[0].x - 1, this.joints[0].y);
+    this.state = "left";
     console.log(this.joints);
 };
 
 SnakeGameLogic.prototype.right = function() {
     // 오른쪽 화살표 키를 누르면 실행되는 함수
     console.log("right");
-    move(this.joints, this.joints[0].x + 1, this.joints[0].y);
+    this.state = "right";
     console.log(this.joints);
 };
 
@@ -74,6 +82,23 @@ SnakeGameLogic.prototype.nextState = function() {
     // 게임이 아직 끝나지 않았으면 `true`를 반환
     // 게임이 끝났으면 `false`를 반환
     console.log(`nextState`);
+    //
+    switch (this.state) {
+        case 'up':
+            posMove(this.joints, this.joints[0].x, this.joints[0].y - 1);
+            break;
+        case 'down':
+            posMove(this.joints, this.joints[0].x, this.joints[0].y + 1);
+            break;
+        case 'left':
+            posMove(this.joints, this.joints[0].x - 1, this.joints[0].y);
+            break;
+        case 'right':
+            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y);
+            break;
+        default:
+            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y);
+    }
     return true;
 }
 
