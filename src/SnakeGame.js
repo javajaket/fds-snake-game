@@ -107,6 +107,7 @@ export default class SnakeGame {
 
   template() {
     return <div className={`game ${this.gameState === 'end' ? 'end' : ''}`}>
+      <h1 className="title">Snake Game</h1>
       <div className="table">
         {this.table.map(cols => <div className="table__row">
           {cols.map(cell => <div className={`table__cell ${cell === 'joint' ? 'joint' : cell === 'fruit' ? 'fruit' : ''}`}></div>)}
@@ -116,14 +117,14 @@ export default class SnakeGame {
         {
           this.gameState === 'end'
           ? <div>
-            <span>기록: {this.logic.joints.length}</span>
-            <button className="button restart-button" onClick={e => {this.init(); this.start();}}>다시 시작</button>
+            <span>Total Score: {this.logic.joints.length}</span>
+            <button className="button restart-button" onClick={e => {this.init(); this.start();}}>Restart</button>
           </div>
           : this.gameState === 'running'
           ? <div>
-            현재 길이: {this.logic.joints.length}
+            <span>Score: {this.logic.joints.length}</span>
           </div>
-          : <button className="button start-button" onClick={e => this.start()}>게임 시작</button>
+          : <button className="button start-button" onClick={e => this.start()}>Start</button>
         }
       </div>
     </div>

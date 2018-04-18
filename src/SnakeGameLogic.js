@@ -42,46 +42,44 @@ SnakeGameLogic.prototype.nextState = function() {
   // 게임이 아직 끝나지 않았으면 `true`를 반환
   // 게임이 끝났으면 `false`를 반환
   console.log(`nextState`);
-  // 임시루 작성~
+
   // 뱀 머리 좌표~
-  let newJoint = {x: this.joints[0]['x'], y: this.joints[0]['y']}
+  let newJoint = {x: this.joints[0].x, y: this.joints[0].y}
 
   // 뱀 머리 방향에 따른 좌표 계산
   switch(this.direction) {
     case 'up' :
-      newJoint['y']--;
+      newJoint.y--;
       break;
     case 'down':
-      newJoint['y']++;
+      newJoint.y++;
       this.joints.unshift();
       break;
     case 'left' : 
-      newJoint['x']--;
+      newJoint.x--;
       this.joints.unshift();
       break;
     default: 
-      newJoint['x']++;
+      newJoint.x++;
   }
   
-  if (this.joints.some(item => item['x'] === newJoint['x'] && item['y'] === newJoint['y'])) {
+  if (this.joints.some(item => item.x === newJoint.x && item.y === newJoint.y)) {
     // 뱀이 자기 몸통에 부딪치면
     return false;
-  } else if ((newJoint['x'] < 0 || newJoint['x'] > COLS - 1) || (newJoint['y'] < 0 || newJoint['y'] > ROWS - 1)) {
+  } else if ((newJoint.x < 0 || newJoint.x > COLS - 1) || (newJoint.y < 0 || newJoint.y > ROWS - 1)) {
     // 뱀이 게임영역 벗어나면(벽에 부딪치면)
     return false;
-  } else if ((newJoint['x'] === this.fruit['x'] && newJoint['y'] === this.fruit['y'])) {
+  } else if ((newJoint.x === this.fruit.x && newJoint.y === this.fruit.y)) {
     // 뱀이 사과를 먹을때
     this.joints.unshift(newJoint);
     // ※ 뱀이 너무 길어져서 사과가 뱀 몸통에 생성되지 않게 하기
-    let fruitJointX = [this.fruit['x']];
-    let fruitJointY = [this.fruit['y']];
+    let fruitJointX = [this.fruit.x];
+    let fruitJointY = [this.fruit.y];
     do {
       fruitJointX = Math.floor(Math.random() * COLS);
       fruitJointY = Math.floor(Math.random() * ROWS);
-    }
-    while(this.joints.some(item => item['x'] === fruitJointX && item['y'] === fruitJointY))
+    } while(this.joints.some(item => item.x === fruitJointX && item.y === fruitJointY));
     this.fruit = {x: fruitJointX, y: fruitJointY};
-    // this.joints.pop();
   }
   else {
     // 그냥 뱀 이동

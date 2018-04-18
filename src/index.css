@@ -1,14 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 body {
-  font-family: sans-serif;
+  font-family: 'Press Start 2P', cursive;
 }
 
 #game-root {
   width: 50vw;
   margin: 0 auto;
+  padding: 2em;
+  border: 5px solid rgb(0,0,0);
 }
-
+.title {
+  text-align: center;
+  font-size: 2em;
+}
 .table__row {
   display: flex;
+}
+
+.table {
+  border: 5px solid rgb(0,0,0)
 }
 
 .table__cell {
@@ -24,24 +34,152 @@ body {
   content: '';
   padding-bottom: 100%;
 }
+.game.end .table {
+  filter: grayscale(100%);
+  position: relative;
+  animation: shake 0.3s;
+}
+.table::after {  
+  content: 'Game Over';
+  white-space: nowrap;
+  font-size: 3em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+.game.end .table::after {
+  animation: skew 0.5s 0.5s forwards;
+}
+@keyframes shake {
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0);
+  }
+}
+@keyframes skew {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+  50%, 100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) skew(-20deg);
+  }
+  100% {
+    text-shadow: 7px 3px #999
+  }
+}
 
 .game.end .joint {
   background-color: black;
+  background-image: repeating-linear-gradient(-60deg,
+    #6b5948,
+    #6b5948 5px, 
+    #9e856a 5px, 
+    #9e856a 10px, 
+    #524a43 10px, 
+    #524a43 20px)
 }
 
 .joint {
-  background-color: #ccc;
+  background-color: green;
+  background-image: repeating-linear-gradient(-60deg, 
+    #428d4b, 
+    #428d4b 5px, 
+    rgb(136, 211, 50) 5px, 
+    rgb(136, 211, 50) 10px, 
+    #2e5833 10px, 
+    #2e5833 20px)
 }
 
 .fruit {
   background-color: red;
+  background-image: radial-gradient(circle at 50%, red, red 60%, #f5f5f5 60%);
 }
+/* .fruit::after {
+  position: absolute;
+  content: '\01F34E';
+} */
 
 .description {
   margin-top: 1em;
+}
+.description::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.description span {
+  display: inline-block;
+  border: 2px solid rgb(0,0,0);
+  padding: 1em 2em;
+  margin: 5px 0;
 }
 
 .description .button {
   display: block;
   float: right;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1em;
+  padding: 1em 1.2em;
+  border-top: 5px solid rgb(255, 187, 187);
+  border-left: 5px solid rgb(221, 134, 134);
+  border-right: 10px solid rgb(235, 68, 68);
+  border-bottom: 10px solid rgb(194, 70, 70) ;
+  background-color: red;
+  transform: translateY(0);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.description .button:hover,
+.description .button:focus {
+  transform: translateY(2px);
+  background-color: rgb(172, 20, 20);
+}
+.description .restart-button {
+  position: relative;
+}
+.description .restart-button::before {
+  /* content: '\0021E3'; */
+  content: '\00003E';
+  color: red;
+  font-size: 2em;
+  position: absolute;
+  top: 0;
+  left: 50%; 
+  transform: translateX(-50%) translateY(-150%) rotate(90deg);
+  animation: clickDown 2s infinite cubic-bezier(0.19, 1, 0.22, 1); 
+}
+
+.description .restart-button:hover::before,
+.description .restart-button:focus::before {
+  display: none;
+}
+@keyframes clickDown {
+  0%,
+  25%,
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-150%) rotate(90deg) ;
+  }
+  50%,
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-120%) rotate(90deg);
+  }
 }
