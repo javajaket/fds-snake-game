@@ -16,15 +16,15 @@ function SnakeGameLogic() {
 
 SnakeGameLogic.prototype.up = function() {
   // 위쪽 화살표 키를 누르면 실행되는 함수
-  this.joints.pop();
+  this.direction = 'up';
   this.joints.unshift({x: this.joints[0].x , y: this.joints[0].y -1});
+  this.joints.pop();
 
   console.log('up');
-  this.direction = 'up';
 
-  if(this.joints[0].y === COLS){
-    
-  }
+  // if(this.joints[0].y === ROWS){
+  //   return false;
+  // }
   //return false;
 }
 
@@ -35,9 +35,9 @@ SnakeGameLogic.prototype.down = function() {
   console.log('down');
   this.direction = 'down';
 
-  if(this.joints[0].y === COLS){
-    
-  }
+  // if(this.joints[0].y === ROWS){
+  //   return false;
+  // }
   //return false;
 
 }
@@ -49,12 +49,12 @@ SnakeGameLogic.prototype.left = function() {
   console.log('left');
   this.direction = 'left';
 
-  if(this.joints[0].x === ROWS){
-    // for(let i = 0; i < this.joints.length; i++){
-      
-    // }
+  // if(this.joints[0].x === COLS){
+  //   // for(let i = 0; i < this.joints.length; i++){
+  //     return false;
+  //   // }
     
-  }
+  // }
   
   //return false;
 }
@@ -71,11 +71,9 @@ SnakeGameLogic.prototype.right = function() {
   // }
 
 
-
-
-  if(this.joints[0].x === ROWS){
-    
-  }
+  // if(this.joints[0].x === COLS){
+  //   return false;
+  // }
   //return false;
 
 }
@@ -101,27 +99,38 @@ SnakeGameLogic.prototype.nextState = function() {
     this.joints.unshift({x: this.joints[0].x-1, y: this.joints[0].y})
   }
 
-  
-  if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y){
+  for(let item of this.joints){
+    if (item.x === this.fruit.x && item.y === this.fruit.y){
     //this.joints.unshift({x: this.fruit.x, y: this.fruit.y});
-    this.fruit = {x: Math.floor(Math.random()*30), y: Math.floor(Math.random()*20)};
+      this.fruit = {x: Math.floor(Math.random()*30), y: Math.floor(Math.random()*20)};
 
-    if (this.direction === 'up') {
-      this.joints.unshift({x: this.joints[0].x, y: this.joints[0].y-1})
-    }else if(this.direction ==='down'){
-      this.joints.unshift({x: this.joints[0].x, y: this.joints[0].y+1})
-    }else if(this.direction ==='right'){
-      this.joints.unshift({x: this.joints[0].x+1, y: this.joints[0].y})
-    }else{
-      this.joints.unshift({x: this.joints[0].x-1, y: this.joints[0].y})
-    }
+      if (this.direction === 'up') {
+        this.joints.unshift({x: this.joints[0].x, y: this.joints[0].y-1})
+      }else if(this.direction ==='down'){
+        this.joints.unshift({x: this.joints[0].x, y: this.joints[0].y+1})
+      }else if(this.direction ==='right'){
+        this.joints.unshift({x: this.joints[0].x+1, y: this.joints[0].y})
+      }else if(this.direction ==='left'){
+        this.joints.unshift({x: this.joints[0].x-1, y: this.joints[0].y})
+      }
+  }
 
-    if(this.joints[0].x === ROWS||this.joints[0].y ===COLS){
-      // for(let i = 0; i < this.joints.length; i++){
-        
+  
+    if(this.joints[0].x===0 ){
+        return false;
+      }
+    
+  // for(let item of this.joints){
+      // if(this.direction === 'up'&&item.y ===COLS){
+      //   return false;
+      // }else if (this.direction === 'down'&&item.y ===COLS){
+      //   return false;
+      // }else if(this.direction ==='right'&&item.x ===ROWS){
+      //   return false;
+      // }else if(this.direction ==='left'&&item.x === ROWS){
+      //   return false;
       // }
-      
-    }
+    // }
     // if (this.direction === 'up'||this.direction ==='down'||this.direction ==='left'||this.direction ==='right') {
     //   this.joints.unshift({x: this.fruit.x, y: this.fruit.y})
     // }
@@ -130,10 +139,10 @@ SnakeGameLogic.prototype.nextState = function() {
     //   return false;
     // }
     
-    return false;
+    
   }
   
-
+  
 
   
   // switch(this.joints){
