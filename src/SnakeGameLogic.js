@@ -78,29 +78,19 @@ SnakeGameLogic.prototype.nextState = function() {
     };
   }
   if (
-    this.joints[0].x === 30 ||
-    this.joints[0].y === 20 ||
+    this.joints[0].x === COLS ||
+    this.joints[0].y === ROWS ||
     this.joints[0].x < 0 ||
     this.joints[0].y < 0
   ) {
     return false;
   }
-  // 몸통이 닿으면 죽는다 .
-
-  return this.joints
-    .slice(1)
-    .some(item => this.joints[0].x === item.x && this.joints[0].y === item.y)
-    ? false
-    : true;
-
-  if (
-    this.joints[0].x === 30 ||
-    this.joints[0].y === 20 ||
-    this.joints[0].x < 0 ||
-    this.joints[0].y < 0
-  ) {
-    return false;
-  }
+  // 몸통이 닿으면 죽는다 . some을 사용하여 구현할 것. 
+  // x의좌표가 같지 않고 y의좌표가 같지 않냐? 라고 물어봄 배열의 요소를 하나씩 확인하다가 트루가 나오면 트루를 반환함 
+  //하나라도 트루면 트루이기 때문에 확인하다가 하나 트루 나오면 멈추고 트루 반환한다
+  // 죽는것은 엑스좌표가 같고 와이좌표가 같을 때 죽음 
+  //some으로 구현해야 한다 ㅜㅜㅜㅜ잘 안된다ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ
+  this.joints.slice(1).some(item => this.joints[0].x !== item.x || this.joints[0].y !== item.y)
   console.log(`nextState`);
 };
 
