@@ -8,15 +8,16 @@ let vector_set = {
   l : {x:-1, y:0}
 } 
 
-let vector;
+let vector = vector_set.r;
 let judge = true;
+let starter = 0;
 
 function SnakeGameLogic() {
   // 각 마디의 좌표를 저장하는 배열
   this.joints = [
-    {x: 0, y: 0},
-    {x: 1, y: 0},
     {x: 2, y: 0},
+    {x: 1, y: 0},
+    {x: 0, y: 0},
   ];
 
   // 먹이의 좌표
@@ -27,120 +28,130 @@ SnakeGameLogic.prototype.up = function() {
   // 위쪽 화살표 키를 누르면 실행되는 함수
 
   vector = vector_set.u
+  if (starter === 1) {
   let brand_new = {x:0, y:0};
-    brand_new.x = this.joints[this.joints.length-1].x + vector.x;
-    brand_new.y = this.joints[this.joints.length-1].y + vector.y;
-    if ( brand_new.x > 30 ||
-      brand_new.x < 0  ||
-        brand_new.y > 20 ||
-        brand_new.y < 0 ) {
-          console.log(brand_new.x,brand_new.y,"/",this.joints[this.joints.length-1].x,this.joints[this.joints.length-1].y)
-          console.log("boom")
-          judge = false;
-          return;
-        }
-    this.joints.shift();
-    this.joints.push(brand_new);
-  console.log('up');
+    brand_new.x = this.joints[0].x + vector.x;
+    brand_new.y = this.joints[0].y + vector.y;
+    // if ( brand_new.x > (COLS-1) ||
+    //   brand_new.x < 0  ||
+    //     brand_new.y > (ROWS-1) ||
+    //     brand_new.y < 0 ) {
+    //       console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
+    //       console.log("boom")
+    //       // judge = false;
+          
+    //     }
+    this.joints.pop();
+    this.joints.unshift(brand_new);
+  console.log('up',this.joints[0].x,this.joints[0].y);
+  starter = 0;
+} 
 }
 
 SnakeGameLogic.prototype.down = function() {
   // 아래쪽 화살표 키를 누르면 실행되는 함수
 
   vector = vector_set.d;
+  if (starter === 1) {
   let brand_new = {x:0, y:0};
-    brand_new.x = this.joints[this.joints.length-1].x + vector.x;
-    brand_new.y = this.joints[this.joints.length-1].y + vector.y;
-    if ( brand_new.x > 30 ||
-      brand_new.x < 0  ||
-        brand_new.y > 20 ||
-        brand_new.y < 0 ) {
-          console.log(brand_new.x,brand_new.y,"/",this.joints[this.joints.length-1].x,this.joints[this.joints.length-1].y)
-          console.log("boom")
-          judge = false;
-          return;
-        }
-    this.joints.shift();
-    this.joints.push(brand_new);
-  console.log('down');
+    brand_new.x = this.joints[0].x + vector.x;
+    brand_new.y = this.joints[0].y + vector.y;
+    // if ( brand_new.x > (COLS-1) ||
+    // brand_new.x < 0  ||
+    //   brand_new.y > (ROWS-1) ||
+    //   brand_new.y < 0 ) {
+    //       console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
+    //       console.log("boom")
+    //       judge = false;
+          
+    //     }
+    this.joints.pop();
+    this.joints.unshift(brand_new);
+  console.log('down',this.joints[0].x,this.joints[0].y);
+  starter = 0;
+      }
 }
 
 SnakeGameLogic.prototype.left = function() {
   // 왼쪽 화살표 키를 누르면 실행되는 함수
   vector = vector_set.l
+  if (starter === 1) {
   let brand_new = {x:0, y:0};
-    brand_new.x = this.joints[this.joints.length-1].x + vector.x;
-    brand_new.y = this.joints[this.joints.length-1].y + vector.y;
-    if ( brand_new.x > 30 ||
-      brand_new.x < 0  ||
-        brand_new.y > 20 ||
-        brand_new.y < 0 ) {
-          console.log(brand_new.x,brand_new.y,"/",this.joints[this.joints.length-1].x,this.joints[this.joints.length-1].y)
-          console.log("boom")
-          judge = false;
-          return;
-        }
-    this.joints.shift();
-    this.joints.push(brand_new);
-  console.log('left');
+    brand_new.x = this.joints[0].x + vector.x;
+    brand_new.y = this.joints[0].y + vector.y;
+    // if ( brand_new.x > (COLS-1) ||
+    // brand_new.x < 0  ||
+    //   brand_new.y > (ROWS-1) ||
+    //   brand_new.y < 0 ) {
+    //       console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
+    //       console.log("boom")
+    //       judge = false;
+          
+    //     }
+    this.joints.pop();
+    this.joints.unshift(brand_new);
+  console.log('left',this.joints[0].x,this.joints[0].y);
+starter =0 ;
+      }
 }
 
 SnakeGameLogic.prototype.right = function() {
   // 오른쪽 화살표 키를 누르면 실행되는 함수
 
   vector = vector_set.r;
+  if (starter === 1) {
   let brand_new = {x:0, y:0};
-    brand_new.x = this.joints[this.joints.length-1].x + vector.x;
-    brand_new.y = this.joints[this.joints.length-1].y + vector.y;
-    if ( brand_new.x > 30 ||
-    brand_new.x < 0  ||
-      brand_new.y > 20 ||
-      brand_new.y < 0 ) {
-        console.log(brand_new.x,brand_new.y,"/",this.joints[this.joints.length-1].x,this.joints[this.joints.length-1].y)
-        console.log("boom")
-        judge = false;
-        return;
-      }
-    this.joints.shift();
-    this.joints.push(brand_new);
-  console.log('right');
+    brand_new.x = this.joints[0].x + vector.x;
+    brand_new.y = this.joints[0].y + vector.y;
+    // if ( brand_new.x > (COLS-1) ||
+    // brand_new.x < 0  ||
+    //   brand_new.y > (ROWS-1) ||
+    //   brand_new.y < 0 ) {
+    //     console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
+    //     console.log("boom")
+    //     judge = false;
+        
+    //   }
+    this.joints.pop();
+    this.joints.unshift(brand_new);
+  console.log('right',this.joints[0].x,this.joints[0].y);
+starter =0;
+    }
 }
 
 SnakeGameLogic.prototype.nextState = function() {
 
-  if ( this.joints[this.joints.length-1].x === this.fruit.x && this.joints[this.joints.length-1].y === this.fruit.y){
+  switch (vector) {
+    case vector_set.r: starter = 1; this.right(); break;
+    case vector_set.l: starter = 1; this.left(); break;
+    case vector_set.u: starter = 1; this.up(); break;
+    case vector_set.d: starter = 1; this.down(); break;
+    // default : starter = 1; this.right(); return;
+     }
+
+  if ( this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y){
     let brand_new = {x:0, y:0};
-    brand_new.x = this.joints[0].x - vector.x;
-    brand_new.y = this.joints[0].y - vector.y;
-    this.joints.unshift(brand_new);
-    this.fruit.x = Math.floor(Math.random() * 30);
-    this.fruit.y = Math.floor(Math.random() * 20);
+    brand_new.x = this.joints[this.joints.length-1].x + (this.joints[this.joints.length-1].x - this.joints[this.joints.length-2].x);
+    brand_new.y = this.joints[this.joints.length-1].y + (this.joints[this.joints.length-1].y - this.joints[this.joints.length-2].y);
+    this.joints.push(brand_new);
+    this.fruit.x = Math.floor(Math.random() * (COLS-1));
+    this.fruit.y = Math.floor(Math.random() * (ROWS-1));
     }
 
-  for (let i = 0; i < this.joints.length -1 ; i++) {
-    if ( this.joints[this.joints.length-1].x === this.joints[i].x && this.joints[this.joints.length-1].y === this.joints[i].y){
-      console.log("getin")
+  for (let i = this.joints.length -1; i > 0 ; i--) {
+    if ( this.joints[0].x === this.joints[i].x && this.joints[0].y === this.joints[i].y){
+      console.log("boom_self") 
       judge = false;
+      return false;
     } 
   }
-
-
-
-  // 한 번 움직여야 할 타이밍마다 실행되는 함수
-  // 게임이 아직 끝나지 않았으면 `true`를 반환
-  // 게임이 끝났으면 `false`를 반환
-
-
-
-// 뒤 따다 붙이기
-// 먹이 머리에 붙이기
-// 벡터만 조정하기
-
-
+  console.log(this.joints);
+  console.log("this.joints.length",this.joints.length)
   console.log(`nextState`);
-  return judge;
-}
+  console.log('judge',judge)
 
+  return true;
+}
 
 
 
