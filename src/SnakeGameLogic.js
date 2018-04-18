@@ -29,12 +29,12 @@ function SnakeGameLogic() {
 
     // 먹이의 좌표
     this.fruit = { x: 3, y: 5 };
-    this.pos = {
-            xpos: 1,
-            ypos: 1
-        }
-        // 방향을 정해주는 변수
-    this.state = ''
+
+    // 방향을 정해주는 변수
+    this.state = {
+        direction: '',
+        startEnd: true
+    };
 }
 // 상하좌우 이동 함수
 function posMove(arr, xValue, yValue) {
@@ -52,29 +52,25 @@ function posMove(arr, xValue, yValue) {
 SnakeGameLogic.prototype.up = function() {
     // 위쪽 화살표 키를 누르면 실행되는 함수
     console.log('up');
-    this.state = 'up';
-    console.log(this.joints);
+    this.state.direction = 'up';
 }
 
 SnakeGameLogic.prototype.down = function() {
     // 아래쪽 화살표 키를 누르면 실행되는 함수
     console.log('down');
-    this.state = 'down';
-    console.log(this.joints);
+    this.state.direction = 'down';
 }
 
 SnakeGameLogic.prototype.left = function() {
     // 왼쪽 화살표 키를 누르면 실행되는 함수
     console.log("left");
-    this.state = "left";
-    console.log(this.joints);
+    this.state.direction = "left";
 };
 
 SnakeGameLogic.prototype.right = function() {
     // 오른쪽 화살표 키를 누르면 실행되는 함수
     console.log("right");
-    this.state = "right";
-    console.log(this.joints);
+    this.state.direction = "right";
 };
 
 SnakeGameLogic.prototype.nextState = function() {
@@ -82,8 +78,8 @@ SnakeGameLogic.prototype.nextState = function() {
     // 게임이 아직 끝나지 않았으면 `true`를 반환
     // 게임이 끝났으면 `false`를 반환
     console.log(`nextState`);
-    //
-    switch (this.state) {
+
+    switch (this.state.direction) {
         case 'up':
             posMove(this.joints, this.joints[0].x, this.joints[0].y - 1);
             break;
@@ -98,8 +94,14 @@ SnakeGameLogic.prototype.nextState = function() {
             break;
         default:
             posMove(this.joints, this.joints[0].x + 1, this.joints[0].y);
+            break;
     }
-    return true;
+    if (this.joints[0].y === ROWS || this.joints[0].x === COLS) {
+        console.log(this.joints[0].x);
+        return this.state.startEnd = false;
+    } else {
+        return this.state.startEnd;
+    }
 }
 
 export default SnakeGameLogic;
