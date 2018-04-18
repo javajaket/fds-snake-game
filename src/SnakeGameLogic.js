@@ -10,11 +10,12 @@ pop으로 삭제와 unshift로 추가해주면 되고
 */
 
 /*----------TODO List------------- 
-1. 시작하자마자 자동 이동
-2. 왼쪽 <-> 오른쪽 or 위쪽 <-> 아래쪽 KeyPress 방지
-3. 최대 ROW / COLS에 도착하면 정지
-4. 먹이 좌표에 도착하면 배열길이 증가
-5. 머리가 이동하다 꼬리에 부딪치면 정지*/
+1. 상하좌우 동작 모듈화 -> clear
+2. 시작하자마자 자동 이동
+3. 왼쪽 <-> 오른쪽 or 위쪽 <-> 아래쪽 KeyPress 방지
+4. 최대 ROW / COLS에 도착하면 정지
+5. 먹이 좌표에 도착하면 배열길이 증가
+6. 머리가 이동하다 꼬리에 부딪치면 정지*/
 
 function SnakeGameLogic() {
     // 각 마디의 좌표를 저장하는 배열
@@ -43,54 +44,28 @@ function move(arr, xValue, yValue) {
 SnakeGameLogic.prototype.up = function() {
     // 위쪽 화살표 키를 누르면 실행되는 함수
     console.log('up');
-    const len = this.joints.length;
-    this.joints.pop();
-
-    const newHead = {
-        x: this.joints[0].x,
-        y: this.joints[0].y - 1
-    }
-    this.joints.unshift(newHead);
-    // move(this.joints, this.joints.x, this.joints.y - 1);
+    move(this.joints, this.joints[0].x, this.joints[0].y - 1);
     console.log(this.joints);
 }
 
 SnakeGameLogic.prototype.down = function() {
     // 아래쪽 화살표 키를 누르면 실행되는 함수
     console.log('down');
-    const len = this.joints.length;
-    this.joints.pop();
-
-    const newHead = {
-        x: this.joints[0].x,
-        y: this.joints[0].y + 1
-    };
-    this.joints.unshift(newHead);
+    move(this.joints, this.joints[0].x, this.joints[0].y + 1);
     console.log(this.joints);
 }
 
 SnakeGameLogic.prototype.left = function() {
     // 왼쪽 화살표 키를 누르면 실행되는 함수
     console.log("left");
-    this.joints.pop();
-    const len = this.joints.length;
-    const newHead = {
-        x: this.joints[0].x - 1,
-        y: this.joints[0].y
-    };
-    this.joints.unshift(newHead);
+    move(this.joints, this.joints[0].x - 1, this.joints[0].y);
     console.log(this.joints);
 };
 
 SnakeGameLogic.prototype.right = function() {
     // 오른쪽 화살표 키를 누르면 실행되는 함수
     console.log("right");
-    this.joints.pop();
-    const newHead = {
-        x: this.joints[0].x + 1,
-        y: this.joints[0].y
-    };
-    this.joints.unshift(newHead);
+    move(this.joints, this.joints[0].x + 1, this.joints[0].y);
     console.log(this.joints);
 };
 
