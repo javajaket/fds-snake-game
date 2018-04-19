@@ -53,23 +53,26 @@ SnakeGameLogic.prototype.nextState = function() {
   } else {
     return true;
   }
-  // 먹이를 먹으면 1.먹이 밭 안에서 랜덤 위치 2.꼬리(머리) 추가
-  if (this.fruit.x === this.joints[0].x && this.fruit.y === this.joints[0].y) {
-    this.fruit.x = Math.ceil(COLS * Math.random()); // 주사위 코드 const dice = Math.ceil(6 * Math.random());
-    this.fruit.y = Math.ceil(ROWS * Math.random());
+  // 먹이를 먹으면 1.(뱀의 몸통 영역을 제외한) 먹이 밭 안에서 랜덤 위치 2.꼬리(머리) 추가
+  if (this.fruit.x === newHead.x && this.fruit.y === newHead.y) {
+    let readyFruitX = this.fruit.x;
+    let readyFruitY = this.fruit.y;
+    do {
+      readyFruitX = Math.ceil(COLS * Math.random());
+      readyFruitY = Math.ceil(ROWS * Math.random());
+    } while (this.joints.some(item => item.x === readyFruitX && item.y === readyFruitY));
+    this.fruit = {x: readyFruitX, y: readyFruitY};
     this.joints.unshift(newHead);
     return true;
   }
   // 1.자기 자신과 부딪히거나 2.벽에 부딪히면 게임 종료
   if (this.joints.some(item => item.x === newHead.x && item.y === newHead.y)) {
-    // 게임이 끝났으면 `false`를 반환.
-    console.log(this.joints);
+    // 게임이 끝났으면 `false`를 반환
     return false;
   } else if (newHead.x >= COLS || newHead.y >= ROWS || newHead.x < 0 || newHead.y < 0) {
     return false;
   } else {
-    // 게임이 아직 끝나지 않았으면 `true`를 반환
-    // 게임이 아직 끝나지 않았으면 계속 이동
+    // 게임이 아직 끝나지 않았으면 1.계속 이동 2.`true`를 반환
     this.joints.unshift(newHead);
     this.joints.pop();
     return true;
