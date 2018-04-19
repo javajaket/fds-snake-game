@@ -15,8 +15,8 @@ let starter = 0;
 function SnakeGameLogic() {
   // 각 마디의 좌표를 저장하는 배열
 
-  vector = vector_set.r
-  
+  vector = vector_set.r //must innitialize the vector!!!!
+
   this.joints = [
     {x: 2, y: 0},
     {x: 1, y: 0},
