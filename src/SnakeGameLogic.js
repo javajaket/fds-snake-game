@@ -51,63 +51,42 @@ SnakeGameLogic.prototype.nextState = function() {
   console.log(`nextState`);
 
   let newHead = {};
-  const levelUp = (this.joints[0].x  === this.fruit.x) && (this.joints[0].y === this.fruit.y);
 
   // 뱀이 방향에 따라 움직이는 코드
   if (this.direction === 'right'){
     newHead.x = this.joints[0].x + 1;
     newHead.y = this.joints[0].y;
-    if ( this.joints.some(item => item.x === newHead.x && item.y === newHead.y) ) {
-      // 뱀이 가던 방향과 반대 방향의 키보드를 만나면 게임이 끝난다.
-      return false;
-    } 
-    this.joints.unshift(newHead);    
   } else if (this.direction === 'left'){
     newHead.x = this.joints[0].x - 1;
     newHead.y = this.joints[0].y;
-    if ( this.joints.some(item => item.x === newHead.x && item.y === newHead.y)) {
-      // 뱀이 가던 방향과 반대 방향의 키보드를 만나면 게임이 끝난다.
-      return false;
-    } 
-    this.joints.unshift(newHead);
   } else if (this.direction === 'up'){
     newHead.x = this.joints[0].x;
     newHead.y = this.joints[0].y - 1;
-    if ( this.joints.some(item => item.x === newHead.x && item.y === newHead.y)) {
-      // 뱀이 가던 방향과 반대 방향의 키보드를 만나면 게임이 끝난다.
-      return false;
-    } 
-    this.joints.unshift(newHead);
   } else if (this.direction === 'down'){
     newHead.x = this.joints[0].x;
     newHead.y = this.joints[0].y + 1;
-    if ( this.joints.some(item => item.x === newHead.x && item.y === newHead.y)) {
-      // 뱀이 가던 방향과 반대 방향의 키보드를 만나면 게임이 끝난다.
-      return false;
-    } 
-    this.joints.unshift(newHead);  
   }
+  if ( this.joints.some(item => item.x === newHead.x && item.y === newHead.y) ) {
+    // 뱀이 가던 방향과 반대 방향의 키보드를 만나면 게임이 끝난다.
+    return false;
+  } 
+  this.joints.unshift(newHead);    
 
-  if(levelUp) {
-  // 뱀이 먹이를 만나면 먹이가 움직인다.
+  if( (this.joints[0].x  === this.fruit.x) && (this.joints[0].y === this.fruit.y)) {
+    // 뱀이 먹이를 만나면 먹이가 움직인다.
     do{
       this.fruit.x = Math.ceil(COLS * Math.random()) - 1;
       this.fruit.y = Math.ceil(ROWS * Math.random()) - 1;
     } while (!this.joints.some(item => item.x !== this.fruit.x && item.y !== this.fruit.y))
-  } 
-  
-  if(!levelUp) {
-    // 뱀이 먹이를 만나지 않으면 끝마디가 제거된다.
-    this.joints.pop();
-  } 
-    
+    return true;
+  } else {
+  // 뱀이 먹이를 만나지 않으면 끝마디가 제거된다.
+  this.joints.pop();
+  }
   if ( this.joints[0].x < 0 || this.joints[0].x >= COLS || this.joints[0].y < 0 || this.joints[0].y >= ROWS ) {
   // 뱀이 벽에 부딪히면 게임이 끝난다.
     return false;
   } 
-
   return true;
 }
-
-
 export default SnakeGameLogic;
