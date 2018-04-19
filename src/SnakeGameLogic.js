@@ -1,13 +1,6 @@
 import { ROWS, COLS } from './config';
 
-/* 4_17 
-Logic은 꼬리가 머리가 되는 것임으로 
-pop으로 삭제와 unshift로 추가해주면 되고
-가고자 하는 좌표로 +1 또는 -1을 해주면 된다.
------------------------------------------
-결국 x, y좌표에 +1 / -1만해주면되니 이것을
-모듈화 시키자
-*/
+
 
 /*----------TODO List------------- 
 1. 상하좌우 동작 모듈화 -> clear
@@ -16,7 +9,8 @@ pop으로 삭제와 unshift로 추가해주면 되고
 3. 왼쪽 <-> 오른쪽 or 위쪽 <-> 아래쪽 KeyPress 방지
 4. 최대 ROW / COLS에 도착하면 정지 -> clear
 5. 먹이 좌표에 도착하면 배열길이 증가
-6. 머리가 이동하다 꼬리에 부딪치면 정지*/
+6. 머리가 이동하다 꼬리에 부딪치면 정지 -> clear
+*/
 
 function SnakeGameLogic() {
     // 각 마디의 좌표를 저장하는 배열
@@ -26,7 +20,7 @@ function SnakeGameLogic() {
         { x: 1, y: 0 },
         { x: 0, y: 0 },
     ];
-
+    this.newHead = {};
     // 먹이의 좌표
     this.fruit = { x: 3, y: 5 };
 
@@ -36,31 +30,40 @@ function SnakeGameLogic() {
         startEnd: true
     };
 }
+
 // 상하좌우 이동 함수
-function posMove(joints, newXvalue, newYvalue, fruit) {
-    const newHead = { x: newXvalue, y: newYvalue };
-    console.log(newHead);
+// return은 머리가 몸통에 부딪혔을때 정지하는 동작을 구현하기 위해 head정보를 반환한다.
+function posMove(joints, newXvalue, newYvalue, fruit, newHead) {
+    newHead = { x: newXvalue, y: newYvalue };
     // 꼬리가 머리로 바뀌는 동작 && 먹이 먹는 동작
     // 꼬리가 머리로 바뀌는 좌표가 먹이와 같은 곳이면 꼬리를 떼는 동작을 없앤다
     if (newXvalue === fruit.x && newYvalue === fruit.y) {
         joints.unshift(newHead);
-    }
-    // else if()
-    // 새로운 머리가 먹이의 좌표가 아니면 꼬리를 떼고 머리를 추가
-    else {
+        fruit.x = Math.trunc(Math.random() * COLS);
+        fruit.y = Math.trunc(Math.random() * ROWS);
+    } else {
         joints.pop();
         joints.unshift(newHead);
     }
-    return joints;
+    return newHead;
 }
-
-function addHead(arr, target) {
-    const newHead = {
-        x: target.x,
-        y: target.y
-    };
-    arr.unshift(newHead);
-    return arr;
+// 게임이 정지하는 함수
+// nextState에서 Head정보를 갱신받아와서 조건검사
+function findFunc(joints, newHead) {
+    // newHead정보는 joints[0]에 항상포함되기때문에 능력부족으로 some함수 사용 불가
+    // 반복문으로 joints[1]부터 마지막index까지 검사하면서 head와 같은 것이 있는지 확인
+    for (let i = 1; i < joints.length; i++) {
+        if (joints[i].x === newHead.x && joints[i].y === newHead.y) {
+            return false;
+        }
+    }
+    if (joints[0].y === ROWS || joints[0].x === COLS) {
+        return false;
+    } else if (joints[0].y < 0 || joints[0].x < 0) {
+        return false;
+    } else {
+        return true
+    }
 }
 SnakeGameLogic.prototype.up = function() {
     // 위쪽 화살표 키를 누르면 실행되는 함수
@@ -95,30 +98,23 @@ SnakeGameLogic.prototype.nextState = function() {
 
     switch (this.state.direction) {
         case "up":
-            posMove(this.joints, this.joints[0].x, this.joints[0].y - 1, this.fruit);
+            this.newHead = posMove(this.joints, this.joints[0].x, this.joints[0].y - 1, this.fruit, this.newHead);
             break;
         case "down":
-            posMove(this.joints, this.joints[0].x, this.joints[0].y + 1, this.fruit);
+            this.newHead = posMove(this.joints, this.joints[0].x, this.joints[0].y + 1, this.fruit, this.newHead);
             break;
         case "left":
-            posMove(this.joints, this.joints[0].x - 1, this.joints[0].y, this.fruit);
+            this.newHead = posMove(this.joints, this.joints[0].x - 1, this.joints[0].y, this.fruit, this.newHead);
             break;
         case "right":
-            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y, this.fruit);
+            this.newHead = posMove(this.joints, this.joints[0].x + 1, this.joints[0].y, this.fruit, this.newHead);
             break;
         default:
-            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y, this.fruit);
+            console.log('default');
+            this.newHead = posMove(this.joints, this.joints[0].x + 1, this.joints[0].y, this.fruit, this.newHead);
             break;
     }
-    //최대 행,열에 닿으면 정지하는 조건문
-    if (this.joints[0].y === ROWS || this.joints[0].x === COLS) {
-        return this.state.startEnd = false;
-    } else if (this.joints[0].y < 0 || this.joints[0].x < 0) {
-        return this.state.startEnd = false;
-    } else {
-        return this.state.startEnd;
-    }
-    //먹이 먹는 동작
+    return findFunc(this.joints, this.newHead);
 }
 
 export default SnakeGameLogic;
