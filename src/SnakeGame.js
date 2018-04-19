@@ -63,6 +63,8 @@ export default class SnakeGame {
     this.logic = new SnakeGameLogic();
     this.updateTable();
     this.draw();
+    window.prompt('How many bomb(s) you want to put in the game?');
+    window.alert('Great! BTW sorry to tell you this but, the level systems is under constructed.');
   }
 
   start() {
@@ -86,9 +88,9 @@ export default class SnakeGame {
   }
 
   updateTable() {
-    const {joints, fruit: f} = this.logic;
+    const {joints, fruit: f, bomb : k} = this.logic;
 
-    if (!joints || !f) return;
+    if (!joints || !f || !k) return;
 
     for (let r of this.table) {
       r.fill(null);
@@ -96,6 +98,10 @@ export default class SnakeGame {
 
     if (f.y < this.table.length && f.x < this.table[f.y].length) {
       this.table[f.y][f.x] = 'fruit';
+    }
+    
+    if (k.y < this.table.length && k.x < this.table[k.y].length) {
+      this.table[k.y][k.x] = 'bomb';
     }
 
     for (let j of joints) {
@@ -110,22 +116,31 @@ export default class SnakeGame {
   template() {
     return <div className={`game ${this.gameState === 'end' ? 'end' : ''}`}>
       <div className="table">
+        <span class="game-title">Snake Game</span>
+        <span class="game-desc"><br />Welcome to play the snake game. <br />First of all, all you need to do is eat the apple (the red dot) by avoiding hittig the bomb (the black doc). <br />Good luck!<br /></span>
         {this.table.map(cols => <div className="table__row">
-          {cols.map(cell => <div className={`table__cell ${cell === 'joint' ? 'joint' : cell === 'fruit' ? 'fruit' : ''}`}></div>)}
+          {cols.map(cell => <div className={`table__cell ${cell === 'joint' ? 'joint' : cell === 'fruit' ? 'fruit' : cell === 'bomb' ? 'bomb' : ''}`}></div>)}
         </div>)}
       </div>
       <div className="description">
         {
           this.gameState === 'end'
           ? <div>
-            <span>기록: {this.logic.joints.length}</span>
-            <button className="button restart-button" onClick={e => {this.init(); this.start();}}>다시 시작</button>
+            <span>Score: {this.logic.joints.length}</span>
+            <button className="button restart-button" onClick={e => {this.init(); this.start();}}>Restart</button>
+            <span class="space"><br />Share your best score to your friends!</span>
+            <button className="button social-button space" onClick={e => {this.init(); this.start();}}><i class = "">Twitter</i></button>
+            <button className="button social-button space" onClick={e => {this.init(); this.start();}}><i class = "">Facebook</i></button>
           </div>
           : this.gameState === 'running'
           ? <div>
-            현재 길이: {this.logic.joints.length}
+            Score: {this.logic.joints.length}
+            <br /> First mission : Get more than 6 points!
           </div>
-          : <button className="button start-button" onClick={e => this.start()}>게임 시작</button>
+          : <div> <button className="button start-button" onClick={e => this.start()}>Start</button>
+                  <span> Let's play Snake game! <br />To start the game, click 'Start' </span>
+                  <span class="hi-score"> <br />The heighet score so far : 27  by kate kim</span>
+            </div>
         }
       </div>
     </div>

@@ -25,6 +25,11 @@ body {
   padding-bottom: 100%;
 }
 
+.table {
+  margin-top: 2.5rem;
+  background-color: #fff;
+}
+
 .game.end .joint {
   background-color: black;
 }
@@ -37,6 +42,10 @@ body {
   background-color: red;
 }
 
+.bomb {
+  background-color: #4e3e40;
+}
+
 .description {
   margin-top: 1em;
 }
@@ -44,4 +53,33 @@ body {
 .description .button {
   display: block;
   float: right;
+}
+
+.social-button {
+  color: #fff;
+  background-color: #3c0dd9;
+  margin-right: 5px;
+}
+
+.space {
+  display: block;
+}
+
+.hi-score {
+  display: block;
+  text-align: center;
+  color: brown;
+}
+
+.game-title {
+  font-size: 1.7rem;
+  color: darkgreen;
+  display: inline-block;
+  margin: 0 0 0 5px;
+}
+
+.game-desc {
+  margin-bottom: 10px;
+  margin-top: -10px;
+  display: inline-block;
 }
