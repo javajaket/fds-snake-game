@@ -69,6 +69,7 @@ export default class SnakeGame {
     this.intervalID = setInterval(() => {
       this.delay *= DELAY_EXPONENT;
     }, 1000);
+    document.querySelector('.panel').innerHTML = '';
     this.nextFrame();
   }
 
@@ -112,6 +113,7 @@ export default class SnakeGame {
           {cols.map(cell => <div className={`table__cell ${cell === 'joint' ? 'joint' : cell === 'fruit' ? 'fruit' : ''}`}></div>)}
         </div>)}
       </div>
+      <p className="panel"></p>
       <div className="description">
         {
           this.gameState === 'end'
