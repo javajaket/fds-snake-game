@@ -1,7 +1,7 @@
 import {ROWS, COLS} from './config';
 
 
-let vector_set = { 
+const vector_set = { 
   r : {x:1, y:0},
   u : {x:0, y:-1},
   d : {x:0, y:1},
@@ -14,6 +14,9 @@ let starter = 0;
 
 function SnakeGameLogic() {
   // 각 마디의 좌표를 저장하는 배열
+
+  vector = vector_set.r
+  
   this.joints = [
     {x: 2, y: 0},
     {x: 1, y: 0},
@@ -22,6 +25,7 @@ function SnakeGameLogic() {
 
   // 먹이의 좌표
   this.fruit = {x: 13, y: 3};
+  
 }
 
 SnakeGameLogic.prototype.up = function() {
@@ -32,15 +36,6 @@ SnakeGameLogic.prototype.up = function() {
   let brand_new = {x:0, y:0};
     brand_new.x = this.joints[0].x + vector.x;
     brand_new.y = this.joints[0].y + vector.y;
-    // if ( brand_new.x > (COLS-1) ||
-    //   brand_new.x < 0  ||
-    //     brand_new.y > (ROWS-1) ||
-    //     brand_new.y < 0 ) {
-    //       console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
-    //       console.log("boom")
-    //       // judge = false;
-          
-    //     }
     this.joints.pop();
     this.joints.unshift(brand_new);
   console.log('up',this.joints[0].x,this.joints[0].y);
@@ -56,15 +51,6 @@ SnakeGameLogic.prototype.down = function() {
   let brand_new = {x:0, y:0};
     brand_new.x = this.joints[0].x + vector.x;
     brand_new.y = this.joints[0].y + vector.y;
-    // if ( brand_new.x > (COLS-1) ||
-    // brand_new.x < 0  ||
-    //   brand_new.y > (ROWS-1) ||
-    //   brand_new.y < 0 ) {
-    //       console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
-    //       console.log("boom")
-    //       judge = false;
-          
-    //     }
     this.joints.pop();
     this.joints.unshift(brand_new);
   console.log('down',this.joints[0].x,this.joints[0].y);
@@ -79,15 +65,6 @@ SnakeGameLogic.prototype.left = function() {
   let brand_new = {x:0, y:0};
     brand_new.x = this.joints[0].x + vector.x;
     brand_new.y = this.joints[0].y + vector.y;
-    // if ( brand_new.x > (COLS-1) ||
-    // brand_new.x < 0  ||
-    //   brand_new.y > (ROWS-1) ||
-    //   brand_new.y < 0 ) {
-    //       console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
-    //       console.log("boom")
-    //       judge = false;
-          
-    //     }
     this.joints.pop();
     this.joints.unshift(brand_new);
   console.log('left',this.joints[0].x,this.joints[0].y);
@@ -103,15 +80,6 @@ SnakeGameLogic.prototype.right = function() {
   let brand_new = {x:0, y:0};
     brand_new.x = this.joints[0].x + vector.x;
     brand_new.y = this.joints[0].y + vector.y;
-    // if ( brand_new.x > (COLS-1) ||
-    // brand_new.x < 0  ||
-    //   brand_new.y > (ROWS-1) ||
-    //   brand_new.y < 0 ) {
-    //     console.log("new_head_xy", brand_new.x,brand_new.y,"/","head_xy",this.joints[0].x,this.joints[0].y)
-    //     console.log("boom")
-    //     judge = false;
-        
-    //   }
     this.joints.pop();
     this.joints.unshift(brand_new);
   console.log('right',this.joints[0].x,this.joints[0].y);
@@ -140,11 +108,26 @@ SnakeGameLogic.prototype.nextState = function() {
 
   for (let i = this.joints.length -1; i > 0 ; i--) {
     if ( this.joints[0].x === this.joints[i].x && this.joints[0].y === this.joints[i].y){
+      console.log("head_xy",this.joints[0].x,this.joints[0].y)
       console.log("boom_self") 
       judge = false;
       return false;
     } 
   }
+
+  
+      if ( this.joints[0].x > (COLS-1) ||
+      this.joints[0].x < 0  ||
+      this.joints[0].y > (ROWS-1) ||
+      this.joints[0].y < 0 ) {
+        console.log("head_xy",this.joints[0].x,this.joints[0].y)
+        console.log("boom")
+        return false;
+        
+      }
+
+
+
   console.log(this.joints);
   console.log("this.joints.length",this.joints.length)
   console.log(`nextState`);
