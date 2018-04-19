@@ -87,22 +87,26 @@ SnakeGameLogic.prototype.nextState = function() {
     } 
     this.joints.unshift(newHead);  
   }
+
+  if(levelUp) {
+  // 뱀이 먹이를 만나면 먹이가 움직인다.
+    do{
+      this.fruit.x = Math.ceil(COLS * Math.random()) - 1;
+      this.fruit.y = Math.ceil(ROWS * Math.random()) - 1;
+    } while (!this.joints.some(item => item.x !== this.fruit.x && item.y !== this.fruit.y))
+  } 
+  
   if(!levelUp) {
     // 뱀이 먹이를 만나지 않으면 끝마디가 제거된다.
     this.joints.pop();
   } 
-  if(levelUp) {
-  // 뱀이 먹이를 만나면 먹이가 움직인다.
-    this.fruit.x = Math.ceil(COLS * Math.random()) - 1;
-    this.fruit.y = Math.ceil(ROWS * Math.random()) - 1;
-    return true;
-  } else if ( this.joints[0].x < 0 || this.joints[0].x === COLS || this.joints[0].y < 0 || this.joints[0].y === ROWS ) {
+    
+  if ( this.joints[0].x < 0 || this.joints[0].x >= COLS || this.joints[0].y < 0 || this.joints[0].y >= ROWS ) {
   // 뱀이 벽에 부딪히면 게임이 끝난다.
     return false;
   } 
-  else {
-    return true;
-  }
+
+  return true;
 }
 
 
