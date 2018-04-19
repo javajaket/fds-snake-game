@@ -14,7 +14,7 @@ pop으로 삭제와 unshift로 추가해주면 되고
 2. 시작하자마자 자동 이동 -> clear
    keyboardEvent에 상태를 지정해주고 nextState에 상태를 넘겨줘서 방향에 따른 동작이 실행되게 했다.
 3. 왼쪽 <-> 오른쪽 or 위쪽 <-> 아래쪽 KeyPress 방지
-4. 최대 ROW / COLS에 도착하면 정지
+4. 최대 ROW / COLS에 도착하면 정지 -> clear
 5. 먹이 좌표에 도착하면 배열길이 증가
 6. 머리가 이동하다 꼬리에 부딪치면 정지*/
 
@@ -37,14 +37,27 @@ function SnakeGameLogic() {
     };
 }
 // 상하좌우 이동 함수
-function posMove(arr, xValue, yValue) {
+function posMove(joints, newXvalue, newYvalue, fruit) {
+    const newHead = { x: newXvalue, y: newYvalue };
+    console.log(newHead);
+    // 꼬리가 머리로 바뀌는 동작 && 먹이 먹는 동작
+    // 꼬리가 머리로 바뀌는 좌표가 먹이와 같은 곳이면 꼬리를 떼는 동작을 없앤다
+    if (newXvalue === fruit.x && newYvalue === fruit.y) {
+        joints.unshift(newHead);
+    }
+    // else if()
+    // 새로운 머리가 먹이의 좌표가 아니면 꼬리를 떼고 머리를 추가
+    else {
+        joints.pop();
+        joints.unshift(newHead);
+    }
+    return joints;
+}
 
-    let len = arr.length;
-    arr.pop();
-
+function addHead(arr, target) {
     const newHead = {
-        x: xValue,
-        y: yValue
+        x: target.x,
+        y: target.y
     };
     arr.unshift(newHead);
     return arr;
@@ -73,6 +86,7 @@ SnakeGameLogic.prototype.right = function() {
     this.state.direction = "right";
 };
 
+
 SnakeGameLogic.prototype.nextState = function() {
     // 한 번 움직여야 할 타이밍마다 실행되는 함수
     // 게임이 아직 끝나지 않았으면 `true`를 반환
@@ -80,28 +94,31 @@ SnakeGameLogic.prototype.nextState = function() {
     console.log(`nextState`);
 
     switch (this.state.direction) {
-        case 'up':
-            posMove(this.joints, this.joints[0].x, this.joints[0].y - 1);
+        case "up":
+            posMove(this.joints, this.joints[0].x, this.joints[0].y - 1, this.fruit);
             break;
-        case 'down':
-            posMove(this.joints, this.joints[0].x, this.joints[0].y + 1);
+        case "down":
+            posMove(this.joints, this.joints[0].x, this.joints[0].y + 1, this.fruit);
             break;
-        case 'left':
-            posMove(this.joints, this.joints[0].x - 1, this.joints[0].y);
+        case "left":
+            posMove(this.joints, this.joints[0].x - 1, this.joints[0].y, this.fruit);
             break;
-        case 'right':
-            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y);
+        case "right":
+            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y, this.fruit);
             break;
         default:
-            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y);
+            posMove(this.joints, this.joints[0].x + 1, this.joints[0].y, this.fruit);
             break;
     }
+    //최대 행,열에 닿으면 정지하는 조건문
     if (this.joints[0].y === ROWS || this.joints[0].x === COLS) {
-        console.log(this.joints[0].x);
+        return this.state.startEnd = false;
+    } else if (this.joints[0].y < 0 || this.joints[0].x < 0) {
         return this.state.startEnd = false;
     } else {
         return this.state.startEnd;
     }
+    //먹이 먹는 동작
 }
 
 export default SnakeGameLogic;
