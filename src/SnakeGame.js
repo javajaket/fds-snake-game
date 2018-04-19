@@ -19,6 +19,8 @@ export default class SnakeGame {
     this.handleKeydown = throttle(this.handleKeydown.bind(this), 100);
     this.nextFrame = this.nextFrame.bind(this);
   }
+  
+  
 
   handleKeydown(e) {
     // console.log(`keydown: ${e.key}`);

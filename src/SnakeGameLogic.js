@@ -1,54 +1,76 @@
 import {ROWS, COLS} from './config';
 
-
-
 function SnakeGameLogic() {
-  // 각 마디의 좌표를 저장하는 배열
-  // 맨 뒤 꼬리를 떼서 나가고자 하는 방향 앞으로 보내면 된다.
+  
   this.joints = [
-    {x: 0, y: 0},
+    {x: 2, y: 0}, 
     {x: 1, y: 0},
-    {x: 2, y: 0}, // 머리
-//    {x: 3, y: 0}
+    {x: 0, y: 0},
   ];
+    
+  do{
+    this.fruit = {x: Math.floor(Math.random() * COLS),
+                  y: Math.floor(Math.random() * ROWS)};
+  }while(false); // onSnake(this.fruit) 와 유사하게 선언시 작동 안 됨.. 
 
-  // 먹이의 좌표
-    // 먹이를 먹으면 꼬리 뒤로 보낸다.
-  this.fruit = {x: 10, y: 5};
+  this.dx = 1; this.dy = 0;
 }
 
 SnakeGameLogic.prototype.up = function() {
-  // 위쪽 화살표 키를 누르면 실행되는 함수
-  // 뱀이 오른쪽 : y 축 -1 
+  this.dx = 0; this.dy = -1;
   console.log('up');
 }
 
 SnakeGameLogic.prototype.down = function() {
-  // 아래쪽 화살표 키를 누르면 실행되는 함수
+  this.dx = 0; this.dy = 1; 
   console.log('down');
 }
 
 SnakeGameLogic.prototype.left = function() {
-  // 왼쪽 화살표 키를 누르면 실행되는 함수
+  this.dx = -1; this.dy = 0;
   console.log('left');
 }
 
 SnakeGameLogic.prototype.right = function() {
-
-  this.joints.push({x:this.joints[2].x+1, y:0});
-  this.joints.shift();
-//  this.xAix++;
+  this.dx = 1; this.dy = 0;
   console.log('right');
-//  console.log('xArix')
 }
 
 SnakeGameLogic.prototype.nextState = function() {
-  // 한 번 움직여야 할 타이밍마다 실행되는 함수
-  // 게임이 아직 끝나지 않았으면 `true`를 반환
-  // 게임이 끝났으면 `false`를 반환
-  console.log(`nextState`);
-//  console.log(this.joints);
-  return true;
+  
+  let sHead = this.joints[0];
+  let snakeLength = this.joints.length;
+  let snake = this.joints;
+  
+  let newPosition = {
+    x: sHead.x + this.dx,
+    y: sHead.y + this.dy
+  };
+
+  function onSnake(position) {
+    for(let i=0; i<snakeLength; i++){
+      if(position.x === snake[i].x && position.y === snake[i].y){
+        return true;
+      }        
+    }return false;
+  }
+  
+  if(onSnake(newPosition)){
+    return false;
+  }
+    
+  if(newPosition.x >= 0 && newPosition.y >= 0 && newPosition.x < COLS && newPosition.y < ROWS){
+    this.joints.unshift(newPosition);
+
+    if(newPosition.x === this.fruit.x && newPosition.y === this.fruit.y){
+      this.fruit = {x: Math.floor(Math.random() * COLS),
+                    y: Math.floor(Math.random() * ROWS)}   
+    }else {
+      this.joints.pop();
+    }
+    
+    return true;
+    } else return false;  
 }
 
 export default SnakeGameLogic;
