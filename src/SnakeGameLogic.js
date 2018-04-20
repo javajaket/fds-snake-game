@@ -24,7 +24,7 @@ SnakeGameLogic.prototype.up = function() {
 }
 
 SnakeGameLogic.prototype.down = function() {
-  // 아래쪽 화살표 키를 누르면 실행되는 함수
+  // 아래쪽 화살표 키를 누르면 실행되는 함수r
   console.log("down");
   // this.joints.pop();
   // this.joints.unshift({ x: this.joints[0].x, y: this.joints[0].y + 1 });
@@ -54,6 +54,51 @@ SnakeGameLogic.prototype.nextState = function() {
   // 한 번 움직여야 할 타이밍마다 실행되는 함수
   // 게임이 아직 끝나지 않았으면 `true`를 반환
   // 게임이 끝났으면 `false`를 반환
+  
+   let newHead;
+//   if(this.direction === "right"){
+//     newHead = {
+//       x: this.joints[0].x + 1,
+//       y: this.joints[0].y
+//     };
+//   }else if(this.direction==="left"){
+//     newHead = {
+//       x: this.joints[0].x -1,
+//       y: this.joints[0].y
+//     };
+//   }else if(this.direction==="up"){
+//     newHead = {
+//       x: this.joints[0].x,
+//       y: this.joints[0].y-1
+//     };
+//     }else if(this.direction==="down"){
+//     newHead = {
+//       x: this.joints[0].x,
+//       y: this.joints[0].y + 1,
+//     };
+//   }
+//   if(newHead.x < 0|| 
+//     newHead.x >=COLS||
+//     newHead.y < 0||
+//     newHead.y >= ROWS||
+//     this.joints.some(j=>j.x === newHead.x && j.y === newHead.y)){
+//     return false;
+//   } 
+// if(newHead.x === this.fruit.x && newHead.y === this.fruit.y){
+//   this.fruit.x = Math.floor(Math.random() * COLS);
+//   this.fruit.y = Math.floor(Math.random() * ROWS);
+// }else{
+//   this.joints.pop();
+// }
+// this.joints.unshift(newHead);
+// return true;
+
+
+
+
+
+
+
   // 초당 newxtState가 수행 되면서 시간이 지날수록 앞으로 낳아가고 좌우 방향 좌표 통해 명령
     if (this.direction === "right") {
       this.joints.unshift({ x: this.joints[0].x + 1, y: this.joints[0].y });
@@ -64,12 +109,16 @@ SnakeGameLogic.prototype.nextState = function() {
     } else {
       this.joints.unshift({ x: this.joints[0].x, y: this.joints[0].y + 1 });
     }
-    // fruit 위치 생성과 과일이 뱀의 몸에 생성되지 않도록 지정
+    
+    // 뱀이 과일먹었을때 fruit 위치 생성과 과일이 뱀의 몸에 생성되지 않도록 지정
+         
+    
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
-    this.fruit.x = Math.floor(Math.random() * COLS);
-    this.fruit.y = Math.floor(Math.random() * ROWS);
-     this.fruit.x != this.joints.x;
-     this.fruit.y != this.joints.y;
+    
+    do {
+      this.fruit.x = Math.floor(Math.random() * COLS);
+      this.fruit.y = Math.floor(Math.random() * ROWS);
+    } while (this.joints.some(item => item.x === this.fruit.x && item.y === this.fruit.y));
   } else {
     this.joints.pop();
   }
@@ -85,7 +134,7 @@ SnakeGameLogic.prototype.nextState = function() {
   
 // 벽에 부딪히면 종료 되는 이벤트 
   if (this.joints[0].x == -1 || this.joints[0].x == COLS || this.joints[0].y == -1 || this.joints[0].y == ROWS) {
-    return false;   
+    return false; 
   }  
   else {return true;
           console.log(`nextState`);
