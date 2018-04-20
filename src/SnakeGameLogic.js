@@ -59,6 +59,8 @@ SnakeGameLogic.prototype.nextState = function() {
       this.fruit.x = Math.ceil(COLS * Math.random());
       this.fruit.y = Math.ceil(ROWS * Math.random());
     } while (this.joints.some(item => item.x === this.fruit.x && item.y === this.fruit.y)); 
+    this.joints.unshift(newHead);
+    return true;
   } 
   // 1.자기 자신과 부딪히거나 2.벽에 부딪히면 게임 종료
   if (this.joints.some(item => item.x === newHead.x && item.y === newHead.y)) {
