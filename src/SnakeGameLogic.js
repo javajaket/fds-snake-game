@@ -66,29 +66,30 @@ SnakeGameLogic.prototype.nextState = function() {
       newJoint.x++;
   }
   
-  if (this.joints.some(item => item.x === newJoint.x && item.y === newJoint.y)) {
-    // 뱀이 자기 몸통에 부딪치면
+  // 뱀이 자기 몸통에 부딪치면
+  // 뱀이 게임영역 벗어나면(벽에 부딪치면)
+  if (
+    this.joints.some(j => j.x === newJoint.x && j.y === newJoint.y) || 
+    newJoint.x < 0 || 
+    newJoint.x > COLS - 1 || 
+    newJoint.y < 0 || 
+    newJoint.y > ROWS - 1 
+  ) {
     return false;
-  } else if ((newJoint.x < 0 || newJoint.x > COLS - 1) || (newJoint.y < 0 || newJoint.y > ROWS - 1)) {
-    // 뱀이 게임영역 벗어나면(벽에 부딪치면)
-    return false;
-  } else if ((newJoint.x === this.fruit.x && newJoint.y === this.fruit.y)) {
-    // 뱀이 사과를 먹을때
-    this.joints.unshift(newJoint);
-    // ※ 뱀이 너무 길어져서 사과가 뱀 몸통에 생성되지 않게 하기
-    let fruitJointX = this.fruit.x;
-    let fruitJointY = this.fruit.y;
+  } 
+  
+  // 뱀이 사과를 먹을때
+  // ※ 뱀이 너무 길어져서 사과가 뱀 몸통에 생성되지 않게 하기
+  if ((newJoint.x === this.fruit.x && newJoint.y === this.fruit.y)) {
     do {
-      fruitJointX = Math.floor(Math.random() * COLS);
-      fruitJointY = Math.floor(Math.random() * ROWS);
-    } while(this.joints.some(item => item.x === fruitJointX && item.y === fruitJointY));
-    this.fruit = {x: fruitJointX, y: fruitJointY};
-  }
-  else {
-    // 그냥 뱀 이동
-    this.joints.unshift(newJoint);
+      this.fruit.x = Math.floor(Math.random() * COLS);
+      this.fruit.y = Math.floor(Math.random() * ROWS);
+    } while(this.joints.some(j => j.x === this.fruit.x && j.y === this.fruit.y));
+  } else {
     this.joints.pop();
   }
+  this.joints.unshift(newJoint);
+  
   return true; // nextState에서 false면 게임 오버임
 }
 
