@@ -56,44 +56,46 @@ SnakeGameLogic.prototype.nextState = function() {
   // 게임이 끝났으면 `false`를 반환
   
    let newHead;
-//   if(this.direction === "right"){
-//     newHead = {
-//       x: this.joints[0].x + 1,
-//       y: this.joints[0].y
-//     };
-//   }else if(this.direction==="left"){
-//     newHead = {
-//       x: this.joints[0].x -1,
-//       y: this.joints[0].y
-//     };
-//   }else if(this.direction==="up"){
-//     newHead = {
-//       x: this.joints[0].x,
-//       y: this.joints[0].y-1
-//     };
-//     }else if(this.direction==="down"){
-//     newHead = {
-//       x: this.joints[0].x,
-//       y: this.joints[0].y + 1,
-//     };
-//   }
-//   if(newHead.x < 0|| 
-//     newHead.x >=COLS||
-//     newHead.y < 0||
-//     newHead.y >= ROWS||
-//     this.joints.some(j=>j.x === newHead.x && j.y === newHead.y)){
-//     return false;
-//   } 
-// if(newHead.x === this.fruit.x && newHead.y === this.fruit.y){
-//   this.fruit.x = Math.floor(Math.random() * COLS);
-//   this.fruit.y = Math.floor(Math.random() * ROWS);
-// }else{
-//   this.joints.pop();
-// }
-// this.joints.unshift(newHead);
-// return true;
 
+   /* 김승하 강사님 코드
+  if(this.direction === "right"){
+    newHead = {
+      x: this.joints[0].x + 1,
+      y: this.joints[0].y
+    };
+  }else if(this.direction==="left"){
+    newHead = {
+      x: this.joints[0].x -1,
+      y: this.joints[0].y
+    };
+  }else if(this.direction==="up"){
+    newHead = {
+      x: this.joints[0].x,
+      y: this.joints[0].y-1
+    };
+    }else if(this.direction==="down"){
+    newHead = {
+      x: this.joints[0].x,
+      y: this.joints[0].y + 1,
+    };
+  }
+  if(newHead.x < 0|| 
+    newHead.x >=COLS||
+    newHead.y < 0||
+    newHead.y >= ROWS||
+    this.joints.some(j=>j.x === newHead.x && j.y === newHead.y)){
+    return false;
+  } 
+if(newHead.x === this.fruit.x && newHead.y === this.fruit.y){
+  this.fruit.x = Math.floor(Math.random() * COLS);
+  this.fruit.y = Math.floor(Math.random() * ROWS);
+}else{
+  this.joints.pop();
+}
+this.joints.unshift(newHead);
+return true;
 
+*/
 
 
 
