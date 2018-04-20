@@ -17,6 +17,10 @@ function SnakeGameLogic() {
 
   //뱀이 바라보고 있는 방향
   this.direction = 'right';
+
+  Object.defineProperty(this, 'length', {
+    'get' : () => this.joints.length
+  });
 }
 
 SnakeGameLogic.prototype.up = function() {
@@ -47,6 +51,8 @@ SnakeGameLogic.prototype.nextState = function() {
   // 한 번 움직여야 할 타이밍마다 실행되는 함수
   // 게임이 아직 끝나지 않았으면 `true`를 반환
   // 게임이 끝났으면 `false`를 반환
+
+  console.log(`length: ${this.length}`);
 
   console.log(`nextState`);
 
