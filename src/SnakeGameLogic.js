@@ -102,8 +102,8 @@ SnakeGameLogic.prototype.nextState = function() {
     brand_new.x = this.joints[this.joints.length-1].x + (this.joints[this.joints.length-1].x - this.joints[this.joints.length-2].x);
     brand_new.y = this.joints[this.joints.length-1].y + (this.joints[this.joints.length-1].y - this.joints[this.joints.length-2].y);
     this.joints.push(brand_new);
-    this.fruit.x = Math.floor(Math.random() * (COLS-1));
-    this.fruit.y = Math.floor(Math.random() * (ROWS-1));
+    this.fruit.x = Math.round(Math.random() * (COLS-1));
+    this.fruit.y = Math.round(Math.random() * (ROWS-1));
     }
 
   for (let i = this.joints.length -1; i > 0 ; i--) {
