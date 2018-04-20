@@ -11,6 +11,10 @@ function SnakeGameLogic() {
   // 먹이의 좌표
   this.fruit = {x: 3, y: 5};
   this.direction = 'right';
+
+  // Object.defineProperty(this, 'length', {
+  //   'get': () => this.joints.length,
+  // });
 }
 
 SnakeGameLogic.prototype.up = function() {
@@ -38,6 +42,7 @@ SnakeGameLogic.prototype.right = function() {
 }
 
 SnakeGameLogic.prototype.nextState = function() {
+  // console.log(`length: ${this.length}`);
   // 한 번 움직여야 할 타이밍마다 실행되는 함수
   // 게임이 아직 끝나지 않았으면 `true`를 반환
   // 게임이 끝났으면 `false`를 반환
@@ -53,11 +58,9 @@ SnakeGameLogic.prototype.nextState = function() {
       break;
     case 'down':
       newJoint.y++;
-      this.joints.unshift();
       break;
     case 'left' : 
       newJoint.x--;
-      this.joints.unshift();
       break;
     default: 
       newJoint.x++;
@@ -73,8 +76,8 @@ SnakeGameLogic.prototype.nextState = function() {
     // 뱀이 사과를 먹을때
     this.joints.unshift(newJoint);
     // ※ 뱀이 너무 길어져서 사과가 뱀 몸통에 생성되지 않게 하기
-    let fruitJointX = [this.fruit.x];
-    let fruitJointY = [this.fruit.y];
+    let fruitJointX = this.fruit.x;
+    let fruitJointY = this.fruit.y;
     do {
       fruitJointX = Math.floor(Math.random() * COLS);
       fruitJointY = Math.floor(Math.random() * ROWS);
