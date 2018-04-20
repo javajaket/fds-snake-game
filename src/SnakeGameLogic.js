@@ -53,15 +53,15 @@ SnakeGameLogic.prototype.nextState = function() {
   } else {
     return true;
   }
-  // 먹이를 먹으면 1.(뱀의 몸통 영역을 제외한) 먹이 밭 안에서 랜덤 위치 2.꼬리(머리) 추가
+  // 먹이를 먹으면 1.(뱀의 몸통 영역을 제외한) 먹이 밭 안에서 랜덤 위치 2.먹이를 먹지 않으면 꼬리 떼기가 기본 값
   if (this.fruit.x === newHead.x && this.fruit.y === newHead.y) {
     do {
-      this.fruit.x = Math.ceil(COLS * Math.random());
-      this.fruit.y = Math.ceil(ROWS * Math.random());
+      this.fruit.x = Math.floor(COLS * Math.random()); // 최대값이 좌표가 되는 걸 방지하려면 ceil 대신 floor
+      this.fruit.y = Math.floor(ROWS * Math.random());
     } while (this.joints.some(item => item.x === this.fruit.x && item.y === this.fruit.y)); 
-    this.joints.unshift(newHead);
-    return true;
-  } 
+  } else {
+    this.joints.pop();
+  }
   // 1.자기 자신과 부딪히거나 2.벽에 부딪히면 게임 종료
   if (this.joints.some(item => item.x === newHead.x && item.y === newHead.y)) {
     // 게임이 끝났으면 `false`를 반환
@@ -71,7 +71,6 @@ SnakeGameLogic.prototype.nextState = function() {
   } else {
     // 게임이 아직 끝나지 않았으면 1.계속 이동 2.`true`를 반환
     this.joints.unshift(newHead);
-    this.joints.pop();
     return true;
   }
 }
