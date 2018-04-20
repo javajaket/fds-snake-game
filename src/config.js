@@ -5,10 +5,10 @@ export const GAME_ROOT = '#game-root';
 export const AUTO_START = false;
 
 // 게임판의 행 개수
-export const ROWS = 20;
+export const ROWS = 30;
 
 // 게임판의 열 개수
-export const COLS = 30;
+export const COLS = 20;
 
 // 뱀의 이동 주기 (밀리세컨드 단위)
 export const INITIAL_DELAY = 600; // original 3000

@@ -12,10 +12,11 @@ function SnakeGameLogic() {
     {x: 0, y: 0},
   ];
     
+  // nextstate에서 선언한 onSnake() 부를 수 없으므로... 그냥 처음 값은 셀에 하드코딩하는게 마음편할 것 같다.
   do{
     this.fruit = {x: Math.floor(Math.random() * COLS),
                   y: Math.floor(Math.random() * ROWS)};
-  }while(false); // onSnake(this.fruit) 와 유사하게 선언시 작동 안 됨.. 
+  }while(false); 
 
   this.bomb = {x: Math.floor(Math.random() * COLS),
                y: Math.floor(Math.random() * ROWS)};
@@ -78,10 +79,13 @@ SnakeGameLogic.prototype.nextState = function() {
     this.joints.unshift(newPosition);
 
     if(newPosition.x === this.fruit.x && newPosition.y === this.fruit.y){
-      this.fruit = {x: Math.floor(Math.random() * COLS),
-                    y: Math.floor(Math.random() * ROWS)}   
-      this.bomb = {x: Math.floor(Math.random() * COLS),
-                   y: Math.floor(Math.random() * ROWS)};
+      do{
+        this.fruit = {x: Math.floor(Math.random() * COLS),
+                      y: Math.floor(Math.random() * ROWS)}   
+        this.bomb = {x: Math.floor(Math.random() * COLS),
+                     y: Math.floor(Math.random() * ROWS)};
+      } while(onSnake(this.fruit) || onSnake(this.bomb));
+      // false || false = false, true || false = true
     }else {
       this.joints.pop();
     }
