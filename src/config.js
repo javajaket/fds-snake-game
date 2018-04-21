@@ -5,7 +5,7 @@ export const GAME_ROOT = '#game-root';
 export const AUTO_START = false;
 
 // 게임판의 행 개수
-export const ROWS = 30;
+export const ROWS = 15;
 
 // 게임판의 열 개수
 export const COLS = 20;
@@ -14,4 +14,4 @@ export const COLS = 20;
 export const INITIAL_DELAY = 600; // original 3000
 
 // 1초 마다 주기에 곱해줄 상수 (0.95로 지정하면 적당)
-export const DELAY_EXPONENT = 0.98;
+export const DELAY_EXPONENT = 0.97;

@@ -20,8 +20,6 @@ export default class SnakeGame {
     this.nextFrame = this.nextFrame.bind(this);
   }
   
-  
-
   handleKeydown(e) {
     // console.log(`keydown: ${e.key}`);
     switch (e.key) {
@@ -90,26 +88,24 @@ export default class SnakeGame {
   updateTable() {
     const {joints, fruit: f, bomb : k} = this.logic;
 
-    if (!joints || !f || !k) return;
+    if (!joints || !k || !f ) return;
 
-    for (let r of this.table) {
-      r.fill(null);
-    }
+    for (let r of this.table) { r.fill(null); }
 
-    if (f.y < this.table.length && f.x < this.table[f.y].length) {
-      this.table[f.y][f.x] = 'fruit';
-    }
-    
     if (k.y < this.table.length && k.x < this.table[k.y].length) {
       this.table[k.y][k.x] = 'bomb';
     }
+    
+    if (f.y < this.table.length && f.x < this.table[f.y].length) {
+      this.table[f.y][f.x] = 'fruit';
+    }    
 
     for (let j of joints) {
       if (j.y < this.table.length && j.x < this.table[j.y].length) {
         this.table[j.y][j.x] = 'joint';
       }
     }
-
+    
     return this.table;
   }
 

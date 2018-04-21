@@ -1,3 +1,10 @@
+# Check this game out ! 
+
+> https://js-ex-02-snakegame.netlify.com/
+
+- All you need to do is eat the apple (the red dot) by avoiding hittig the bomb (the black doc). 
+- Enjoy this easy-peasy-lemon-squeezy game. Good luck!
+
 # FDS Snake 게임 실습
 
 이 프로젝트는 [뱀 게임](https://en.wikipedia.org/wiki/Snake_%28video_game_genre%29)의 로직을 쉽게 구현해볼 수 있도록, 기반 코드를 미리 작성해 놓은 템플릿 프로젝트입니다.
