@@ -7,9 +7,10 @@ function SnakeGameLogic() {
                  { x: 0, y: 0 }];
 
   // 먹이의 좌표
-  this.fruit = { x: 10, y: 10 };
+  this.fruit = { x: 4, y: 0 };
   // 방향 
   this.direction = "right";
+
 }
 
 SnakeGameLogic.prototype.up = function() {
@@ -54,12 +55,14 @@ SnakeGameLogic.prototype.nextState = function() {
   // 과일을 먹었으면 과일의 위치를 옮겨준다. 꼬리를 떼지 않음으로서 몸통의 길이를 한 칸 길게 해준다. 
   // 그렇지 않다면 꼬리를 떼준다.
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
-    this.fruit = {
-      x: Math.floor(Math.random() * COLS),
-      y: Math.floor(Math.random() * ROWS)
-    };
-  } else {
-    this.joints.pop();
+    do {
+      this.fruit = {
+       x : Math.floor(Math.random() * COLS),
+       y : Math.floor(Math.random() * ROWS)
+      }
+    } while (this.joints.some(j => this.fruit.x === j.x && this.fruit.y === j.y)); 
+   } else {
+    this.joints.pop(); 
   }
   // 벽에 부딪히면 죽는다. 
   if (
@@ -78,5 +81,5 @@ SnakeGameLogic.prototype.nextState = function() {
     return true;
  }
 
-export default SnakeGameLogic;
 
+export default SnakeGameLogic;
