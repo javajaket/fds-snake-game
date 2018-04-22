@@ -58,6 +58,7 @@ SnakeGameLogic.prototype.nextState = function() {
     do {
       this.fruit.x = Math.floor(COLS * Math.random()); // 최대값이 좌표가 되는 걸 방지하려면 ceil 대신 floor
       this.fruit.y = Math.floor(ROWS * Math.random());
+      // FIXME: 새로 생성된 먹이가 newHead랑 겹치면...?
     } while (this.joints.some(item => item.x === this.fruit.x && item.y === this.fruit.y)); 
   } else {
     this.joints.pop();
