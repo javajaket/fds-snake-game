@@ -84,6 +84,7 @@ SnakeGameLogic.prototype.nextState = function() {
     do{
       this.fruit.x = Math.ceil(COLS * Math.random()) - 1; // FIXME: `Math.ceil` 대신 `Math.floor`를 사용할 수 있습니다.
       this.fruit.y = Math.ceil(ROWS * Math.random()) - 1;
+      // FIXME: 아래 판별 코드에 버그가 있습니다. 잘 생각해보세요!
     } while (!this.joints.some(item => item.x !== this.fruit.x && item.y !== this.fruit.y))
     return true;
   } else {
