@@ -135,11 +135,11 @@ return true;
   }
   
 // 벽에 부딪히면 종료 되는 이벤트 
-  if (this.joints[0].x == -1 || this.joints[0].x == COLS || this.joints[0].y == -1 || this.joints[0].y == ROWS) {
+  if (this.joints[0].x <= -1 || this.joints[0].x >= COLS || this.joints[0].y <= -1 || this.joints[0].y >= ROWS) {
     return false; 
   }  
   else {return true;
-          console.log(`nextState`);
+          console.log(`nextState`); // 이 코드는 실행될 수 없습니다.
         }
 }
 export default SnakeGameLogic;
