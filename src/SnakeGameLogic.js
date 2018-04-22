@@ -8,6 +8,7 @@ const vector_set = {
   l : {x:-1, y:0}
 } 
 
+// FIXME: 이 상태들은 게임이 다시 시작되어도 초기화가 되지 않습니다.
 let vector = vector_set.r;
 let judge = true;
 let starter = 0;
@@ -89,6 +90,7 @@ starter =0;
 
 SnakeGameLogic.prototype.nextState = function() {
 
+  // FIXME: 이동과 관련된 코드를 이 쪽으로 옮긴다면 `starter`같은 변수를 두지 않아도 됩니다.
   switch (vector) {
     case vector_set.r: starter = 1; this.right(); break;
     case vector_set.l: starter = 1; this.left(); break;
@@ -103,7 +105,8 @@ SnakeGameLogic.prototype.nextState = function() {
     brand_new.y = this.joints[this.joints.length-1].y + (this.joints[this.joints.length-1].y - this.joints[this.joints.length-2].y);
     this.joints.push(brand_new);
 
-
+    // FIXME: `Math.floor`를 사용할 때와 `Math.round`를 사용할 때의 확률 분포가 다릅니다.
+    // FIXME: `kt`, `sk` 함수가 무한 재귀 호출에 빠질 수 있습니다.
     let kt = () => { let ab = Math.round(Math.random() * (COLS-1)); this.joints.some(item => item.x === ab) ? kt() : this.fruit.x = ab }
     let sk = () => { let ab = Math.round(Math.random() * (ROWS-1)); this.joints.some(item => item.y === ab) ? sk() : this.fruit.y = ab }
     
