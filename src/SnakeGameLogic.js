@@ -10,8 +10,8 @@ function SnakeGameLogic() {
 
   // 먹이의 좌표
   this.fruit = {
-    x : Math.ceil((Math.random() * COLS)-1),
-    y : Math.ceil((Math.random() * ROWS)-1)
+    x : Math.ceil(Math.random() * COLS)-1,
+    y : Math.ceil(Math.random() * ROWS)-1
   }
 
   // 기본 진행 방향
@@ -98,6 +98,15 @@ SnakeGameLogic.prototype.nextState = function () {
 
   // fruit를 먹었을때 = fruit와 snake머리의 위치가 동일할 때 
   if(this.fruit.x === this.joints[0].x && this.fruit.y === this.joints[0].y){
+    do{
+      // fruit는 셀안에서 임의의 위치에 새로 생성  
+      this.fruit.x = Math.ceil(Math.random() * COLS)-1;
+      this.fruit.y = Math.ceil(Math.random() * ROWS)-1;
+    } while (
+      // snake가 있는 위치에 fruit가 생성되지 않도록 해야함
+      // joints 요소들의 좌표와 fruit의 좌표가 같으면 fruit를 임의의 위치에 다시 생성
+      this.joints.some(item => item.x === this.fruit.x && item.y === this.fruit.y)
+    )
     
     // snake 꼬리에 값 추가
     this.joints.push({
@@ -105,10 +114,6 @@ SnakeGameLogic.prototype.nextState = function () {
       y : cellY
     });
     
-    // fruit는 셀안에서 임의의 위치에 새로 생성되어야함
-    this.fruit.x = Math.ceil((Math.random() * COLS)-1);
-    this.fruit.y = Math.ceil((Math.random() * ROWS)-1);
-
     // 새로 생성된 fruit 좌표 확인
     document.querySelector('.panel').innerHTML = `fruit 생성 좌표는 x : ${this.fruit.x}, y : ${this.fruit.y} 입니다.`;
   }
@@ -117,7 +122,7 @@ SnakeGameLogic.prototype.nextState = function () {
   // snake의 첫번째 요소값을 없앤 새로운 배열 선언 = 머리만 제거한 몸통
   const newJoints = this.joints.slice(1);
   // 새로운 배열 요소들의 값과 snake의 첫번째 요소 값이 동일한지 검사 = 머리와 몸통의 값이 동일한 경우 게임 종료
-  if (newJoints.some(item => item.x == this.joints[0].x && item.y == this.joints[0].y)) {
+  if (newJoints.some(item => item.x === this.joints[0].x && item.y === this.joints[0].y)) {
     document.querySelector('.panel').innerHTML = '';
     return false;
   }
