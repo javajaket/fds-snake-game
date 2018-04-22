@@ -51,6 +51,7 @@ function posMove(joints, newXvalue, newYvalue, fruit, newHead) {
 // nextState에서 Head정보를 갱신받아와서 조건검사
 function findFunc(joints, newHead) {
     // newHead정보는 joints[0]에 항상포함되기때문에 능력부족으로 some함수 사용 불가
+    // FIXME: `Array.prototype.slice`를 쓴다면...?
     // 반복문으로 joints[1]부터 마지막index까지 검사하면서 head와 같은 것이 있는지 확인
     for (let i = 1; i < joints.length; i++) {
         if (joints[i].x === newHead.x && joints[i].y === newHead.y) {
@@ -98,6 +99,7 @@ SnakeGameLogic.prototype.nextState = function() {
 
     switch (this.state.direction) {
         case "up":
+            // FIXME: `posMove`를 메소드로 정의한다면 매개변수 개수를 줄일 수 있습니다.
             this.newHead = posMove(this.joints, this.joints[0].x, this.joints[0].y - 1, this.fruit, this.newHead);
             break;
         case "down":
