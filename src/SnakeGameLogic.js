@@ -78,10 +78,11 @@ SnakeGameLogic.prototype.nextState = function() {
   } 
   this.joints.unshift(newHead);    
 
+  // FIXME: `newHead.x === this.fruit.x` 와 같이 쓰면 좀 더 짧게 쓸 수 있을 것 같습니다.
   if( (this.joints[0].x  === this.fruit.x) && (this.joints[0].y === this.fruit.y)) {
     // 뱀이 먹이를 만나면 먹이가 움직인다.
     do{
-      this.fruit.x = Math.ceil(COLS * Math.random()) - 1;
+      this.fruit.x = Math.ceil(COLS * Math.random()) - 1; // FIXME: `Math.ceil` 대신 `Math.floor`를 사용할 수 있습니다.
       this.fruit.y = Math.ceil(ROWS * Math.random()) - 1;
     } while (!this.joints.some(item => item.x !== this.fruit.x && item.y !== this.fruit.y))
     return true;
