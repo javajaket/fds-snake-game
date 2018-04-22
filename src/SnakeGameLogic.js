@@ -66,8 +66,8 @@ SnakeGameLogic.prototype.nextState = function() {
   }
   // 벽에 부딪히면 죽는다. 
   if (
-    this.joints[0].x === COLS ||
-    this.joints[0].y === ROWS ||
+    this.joints[0].x >= COLS ||
+    this.joints[0].y >= ROWS ||
     this.joints[0].x < 0 ||
     this.joints[0].y < 0
   ) {
