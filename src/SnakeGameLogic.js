@@ -45,6 +45,7 @@ SnakeGameLogic.prototype.nextState = function() {
   
   /* ----------------- Required game functions ---------------- */
   /* To do an action when a thing overlaped with snake body(all items of array) */
+  // FIXME: predicate의 이름은 `is...`로 시작하게 지어주는 것이 좋습니다. (isOnSnake 라던가)
   function onSnake(position, body) {
     for(let i=0; i<body.length; i++){
       if(position.x === body[i].x && position.y === body[i].y){
@@ -55,6 +56,7 @@ SnakeGameLogic.prototype.nextState = function() {
   }
   
   /* To place an object by avoiding overlaped on snake body and other gaming objects */
+  // FIXME: 함수의 이름은 명확한 의미를 가지도록 짓는 것이 좋습니다 (예: findEmptyCell)
   function MakeThings(position1, body, object) {
     do{
       position1.x = Math.floor(Math.random() * COLS);
@@ -63,6 +65,7 @@ SnakeGameLogic.prototype.nextState = function() {
   }
   
   /* To indicate when a thing overlaped on bomb */
+  // FIXME: `avoidOverlap`과 기능이 매우 유사하므로, 역할을 명확히 한 후 둘 중에 하나만 남겨놓는 것이 좋습니다. (isSamePos 라던가)
   function onBomb(position2, bomb) {
     if(position2.x === bomb.x && position2.y === bomb.y){
       return false;
