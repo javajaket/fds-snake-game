@@ -63,6 +63,8 @@ SnakeGameLogic.prototype.nextState = function() {
 
   //먹이를 먹고 앞 머리 한칸 증가
   for(let item of this.joints){
+    // FIXME: 먹이를 먹는다는 것은, **머리**의 위치가 먹이의 위치와 같다는 것을 의미하므로
+    // 모든 마디에 대해 아래와 같은 확인을 해 줄 필요가 없습니다.
     if (item.x === this.fruit.x && item.y === this.fruit.y){
     //this.joints.unshift({x: this.fruit.x, y: this.fruit.y});
       this.fruit = {x: Math.floor(Math.random()*30), y: Math.floor(Math.random()*20)};
