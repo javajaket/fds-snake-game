@@ -15,6 +15,7 @@ SnakeGameLogic.prototype.nextState = function() {
   //키보드를 두번째 누르기 전까지 계속 움직여야 하므로, 방향 함수도 nextState에 
   //작성하는 것이 맞다.
   //이전에 어떤 방향키를 눌렀냐-의 정보를 저장해 두는것이 필요하다(변수)
+      // FIXME: 메소드를 선언하는 코드는 제 위치에 있어야 합니다! 뱀을 이동을 시키는 코드만 nextState에 두어 주세요. (`const newHead...`부터 `unshift(newHead);` 까지)
       SnakeGameLogic.prototype.up = function() {
         // 위쪽 화살표 키를 누르면 실행되는 함수
         // 위쪽 키를 누르면 this.joint가 x+1, y-1
@@ -58,9 +59,11 @@ SnakeGameLogic.prototype.nextState = function() {
   // 쌤 힌트. 열매를 먹었을때 pop을 안하면 길이가 늘어나겠져??????? 
   // 과일이 math.random으로 새로생긴다.
   if (this.joints[0].x === this.fruit.x && this.joints[0].y === this.fruit.y) {
+    // FIXME: `+ 1` 때문에 간혹 먹이가 게임판 바깥에 생성되는 일이 생깁니다.
         this.fruit.x = Math.floor(Math.random() * COLS + 1);
 				this.fruit.y = Math.floor(Math.random() * ROWS + 1);
         }
+        // FIXME: 아래 조건에 버그가 있습니다. 무슨 의미인지 잘 생각해보세요.
         else if (!this.joints.some(item => item.x !== this.fruit.x && item.y !== this.fruit.y)) {
            return true;} else {this.joints.pop()}
           
