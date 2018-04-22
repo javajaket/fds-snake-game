@@ -109,11 +109,14 @@ SnakeGameLogic.prototype.nextState = function () {
       this.joints.some(item => item.x === this.fruit.x && item.y === this.fruit.y)
     ){
       // fruit는 셀안에서 임의의 위치에 새로 생성  
+      // FIXME: Math.floor를 대신 사용할 
       this.fruit.x = Math.ceil(Math.random() * COLS)-1;
       this.fruit.y = Math.ceil(Math.random() * ROWS)-1;
     }
     
     // snake 꼬리에 값 추가
+    // FIXME: 위에서 `pop`을 하지 않고 나중에 `pop`을 할지 말지 결정한다면,
+    // `cellX`, `cellY`와 같은 변수를 두지 않을 수 있음
     this.joints.push({
       x : cellX,
       y : cellY
